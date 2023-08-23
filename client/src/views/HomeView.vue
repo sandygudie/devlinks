@@ -21,16 +21,23 @@ import { onMounted } from 'vue'
 let { matches } = window.matchMedia('(max-width: 600px)')
 
 onMounted(async () => {
-  isLoading.value = true
-  const response = await axios.get('http://localhost:8000/api/v1/auth/google/success', {
-    withCredentials: true
-  })
-  if (!response.data.success) return (window.location.href = '/login')
+  try {
+    isLoading.value = true
+    const response = await axios.get('http://localhost:8000/api/v1/auth/google/success', {
+      withCredentials: true
+    })
+    if (response.data.success) {
+      firstname.value = response.data.user[0].name.split(' ')[0]
+      lastname.value = response.data.user[0].name.split(' ')[1]
+      email.value = response.data.user[0].email
+    }
+  } catch (error: any) {
 
-  firstname.value = response.data.user[0].name.split(' ')[0]
-lastname.value = response.data.user[0].name.split(' ')[1]
-email.value = response.data.user[0].email
-
+    console.log(error)
+    return window.location.assign('/login')
+  }finally{
+    isLoading.value = false
+  }
 })
 
 function toggleActive(active: 'links' | 'profile') {
@@ -87,7 +94,9 @@ const handleLinkChange = (event: any, index: number) => {
 }
 </script>
 <template>
-  <div class="h-full p-6" v-if="isDisplay === 'editor'">
+  <span v-if="isLoading"></span>
+  <div v-else>
+  <div  class="h-full p-6" v-if="isDisplay === 'editor'">
     <Header
       :toggledisplay="toggledisplay"
       :profileLinks="profileLinks"
@@ -99,7 +108,7 @@ const handleLinkChange = (event: any, index: number) => {
         v-if="!matches"
         class="bg-white w-5/12 p-8 rounded-lg flex flex-col justify-center h-full items-center relative"
       >
-        <div class="absolute h-[430px] w-[200px]  bg-white z-20">
+        <div class="absolute h-[430px] w-[200px] bg-white z-20">
           <div class="my-8 mx-auto text-center">
             <img
               v-if="previewImage.length > 0"
@@ -109,7 +118,6 @@ const handleLinkChange = (event: any, index: number) => {
             />
             <div v-else class="bg-gray-400 rounded-full w-20 mx-auto h-20"></div>
             <p :class="`text-xs h-3 mt-2  text-sm rounded-lg`">
-            
               {{ firstname + ' ' + lastname }}
             </p>
             <p :class="`text-xs h-3 mt-2  text-sm rounded-lg`">
@@ -169,7 +177,6 @@ const handleLinkChange = (event: any, index: number) => {
         />
         <Profile
           v-else
-
           :email="email"
           :firstname="firstname"
           :lastname="lastname"
@@ -201,6 +208,7 @@ const handleLinkChange = (event: any, index: number) => {
     :profileLinks="profileLinks"
     v-else-if="isDisplay === 'preview'"
   />
+</div>
 </template>
 
 <!-- todo 
@@ -208,5 +216,7 @@ const handleLinkChange = (event: any, index: number) => {
   set up eslint
   write documentation
   include link sharing to differnt media platform
+  include toast
+  bring spinner
   
 -->
