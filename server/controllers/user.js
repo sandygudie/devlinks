@@ -16,7 +16,7 @@ const getUser = async function (req, res) {
             .status(200)
             .json({ success: true, message: "User retrieved", data: data });
         }
-        return res.status(400).json({ error: "User not found" });
+        return res.status(401).json({ error: "User not found" });
       }
     );
   } catch (err) {

@@ -19,7 +19,6 @@ module.exports = (passport) => {
         passReqToCallback: true,
       },
       async (request, accessToken, refreshToken, profile, done) => {
-  
         try {
           connection.query(
             `SELECT * FROM accounts WHERE googleID = '${profile.id}'`,
@@ -30,9 +29,9 @@ module.exports = (passport) => {
               } else {
                 connection.query(
                   `INSERT INTO accounts
-              (googleID,name, email,googleToken) 
+              (googleID,name, email,googleToken,profilepic) 
               VALUES 
-              ('${profile.id}','${profile.displayName}','${profile.email}','${accessToken}')`,
+              ('${profile.id}','${profile.displayName}','${profile.email}','${accessToken}','${profile.picture}')`,
                   (err) => {
                     if (err) {
                       return done(err);

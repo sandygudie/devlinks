@@ -2,13 +2,14 @@ const connection = require("../db/db");
 
 const addLink = async function (req, res) {
   try {
-
     const { userId } = req.query;
 
     let { name, links } = req.body;
- 
+
     if (!userId || !req.body || !name || !links) {
-      return res.status(400).json({success:"false",message:"Invalid Request"});
+      return res
+        .status(400)
+        .json({ success: "false", message: "Invalid Request" });
     }
 
     connection.query(
@@ -28,13 +29,15 @@ const addLink = async function (req, res) {
                   .status(400)
                   .json({ message: "Error adding link", err });
               }
-              return res
-                .status(200)
-                .json({ status: "Link created", result: links });
+              return res.status(200).json({
+                success: true,
+                message: "Link created",
+                result: links,
+              });
             }
           );
         } else {
-          return res.status(400).json("User not found");
+          return res.status(401).json({ message: "User not found" });
         }
       }
     );
@@ -43,6 +46,4 @@ const addLink = async function (req, res) {
   }
 };
 
-
-
-module.exports = { addLink};
+module.exports = { addLink };

@@ -3,7 +3,7 @@ const authRouter = Router();
 const passport = require("passport");
 require("../passportConfig")(passport);
 const CLIENT_HOME_PAGE_URL = "http://localhost:5173";
-const { isUserVerified}= require("../middlewares/userCheck")
+const { isUserVerified } = require("../middlewares/userCheck");
 authRouter.get(
   "/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
@@ -23,7 +23,7 @@ authRouter.get("/google/success", isUserVerified, (req, res) => {
   res.status(200).json({
     success: true,
     message: "user successfully authenticated",
-    user: req.user,
+    userId: req.user.id,
     cookies: req.cookies,
   });
 });
