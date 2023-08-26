@@ -22,7 +22,7 @@ module.exports = (passport) => {
   
         try {
           connection.query(
-            `SELECT * FROM accounts WHERE ID = '${profile.id}'`,
+            `SELECT * FROM accounts WHERE googleID = '${profile.id}'`,
             function (err, user) {
               if (err) return done(err);
               if (user.length) {
@@ -30,7 +30,7 @@ module.exports = (passport) => {
               } else {
                 connection.query(
                   `INSERT INTO accounts
-              (id,name, email,googleToken) 
+              (googleID,name, email,googleToken) 
               VALUES 
               ('${profile.id}','${profile.displayName}','${profile.email}','${accessToken}')`,
                   (err) => {

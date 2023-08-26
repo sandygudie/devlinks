@@ -35,16 +35,14 @@ const linkOptions = [
 const toogleDropdown = () => {
   isDropdown.value = !isDropdown.value
 }
+
 </script>
 
 <template>
   <div class="p-4 mb-6 rounded-lg text-gray-200 bg-gray-100">
     <div class="flex justify-between items-center">
       <h2 class="font-semibold">Link #{{ propitems.index + 1 }}</h2>
-      <button
-        @click="propitems.removeList(propitems.index)"
-        class="hover:text-purple-200 border-none text-sm"
-      >
+      <button @click="propitems.removeList(propitems.index)" class="hover:text-purple-200 border-none text-sm">
         Remove
       </button>
     </div>
@@ -52,36 +50,24 @@ const toogleDropdown = () => {
     <div class="pt-3">
       <label class="text-xs py-1 block">Platform</label>
       <div class="w-full relative">
-        <div
-          @click="toogleDropdown()"
-          class="px-4 py-2.5 bg-white w-full rounded-lg border border-gray-400 border-[1px]"
-        >
+        <div @click="toogleDropdown()" class="px-4 py-2.5 bg-white w-full rounded-lg border border-gray-400 border-[1px]">
           <span class="flex items-center gap-3">
-            <img
-              :src="`/assets/icons/select-icons/icon-${propitems.devLinks[
-                propitems.index
-              ].name.toLowerCase()}.svg`"
-              alt="option.value"
-            />
+            <img :src="`/assets/icons/select-icons/icon-${propitems.devLinks[
+              propitems.index
+            ].name.toLowerCase()}.svg`" alt="option.value" />
 
             {{ propitems.devLinks[propitems.index].name }}
           </span>
-          <span class="absolute right-5 top-3"
-            ><ChevronDownIcon v-if="isDropdown" class="w-5 ml-auto" />
-            <ChevronUpIcon v-else class="w-5 ml-auto"
-          /></span>
+          <span class="absolute right-5 top-3">
+            <ChevronDownIcon v-if="isDropdown" class="w-5 ml-auto" />
+            <ChevronUpIcon v-else class="w-5 ml-auto" />
+          </span>
         </div>
 
-        <div
-          v-show="isDropdown"
-          class="absolute top-14 left-0 w-full bg-white z-20 border-gray-100 border rounded-lg"
-        >
-          <span
-            @click="propitems.handlePlatformChange(option, propitems.id), toogleDropdown()"
+        <div v-show="isDropdown" class="absolute top-14 left-0 w-full bg-white z-20 border-gray-100 border rounded-lg">
+          <span @click="propitems.handlePlatformChange(option, propitems.id), toogleDropdown()"
             class="hover:bg-purple-100 flex px-3 text-sm py-3 items-center gap-3 border border-b-[1px] border-x-0 border-t-0 border-gray-100"
-            v-for="option in linkOptions"
-            :key="option.value"
-          >
+            v-for="option in linkOptions" :key="option.value">
             <img :src="`/assets/icons/select-icons/icon-${option.value}.svg`" alt="option.value" />
             {{ option.label }}
           </span>
@@ -92,12 +78,9 @@ const toogleDropdown = () => {
       <label class="text-xs py-1 block">Link</label>
       <div class="relative">
         <img class="absolute z-10 w-5 left-4 top-3" :src="linkIcon" alt="link" />
-        <input
-          @change="propitems.handleLinkChange($event, propitems.id)"
+        <input type="url" @change="propitems.handleLinkChange($event, propitems.id)"
           class="py-3 w-full px-14 text-sm rounded-lg border border-gray-400 border-[1px]"
-          type="text"
-          required
-        />
+          :value="propitems.devLinks[propitems.index].link" required />
       </div>
     </div>
   </div>

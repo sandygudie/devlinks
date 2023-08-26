@@ -1,5 +1,6 @@
 <script setup lang="ts">
 defineProps<{
+  email:string
   profileLinks: {} | any
   toggledisplay: (display: 'editor' | 'preview') => void
 }>()
@@ -36,7 +37,7 @@ defineProps<{
             {{ profileLinks.firstname }} {{ profileLinks.lastname }}
           </p>
           <p class="mx-auto text-sm mt-8 text-sm`">
-            {{ profileLinks.email }}
+            {{ email }}
           </p>
         </div>
         <div class="mt-12">

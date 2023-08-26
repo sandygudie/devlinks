@@ -37,11 +37,18 @@ const isLoggedIn = (req, res, next) => {
 app.get("/", (req, res) =>
   res.status(200).send({ message: "Welcome to devlinks." })
 );
-app.use("/api/v1/auth", apiRouter);
+app.use("/api/v1", apiRouter);
 
-// middleware
+middleware
 app.use(middleware.unknownEndpoint);
-app.use(middleware.errorHandler);
 app.use(middleware.defaultErrorHandler);
 
 module.exports = app;
+
+
+// deploy to vercer
+// add links to DB
+// replace local host with data (using env)
+// error handling
+// check cookies
+// add a qr code scanner

@@ -5,10 +5,11 @@
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
-    "playwright.config.*"
+    "playwright.config.*",
+    "src/**/*.ts",
+
   ],
   "compilerOptions": {
-    "composite": true,
     "module": "ESNext",
     "types": ["node"]
   }
