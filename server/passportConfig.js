@@ -3,11 +3,11 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const connection = require("./db/db");
 
 module.exports = (passport) => {
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser(function (user, done) {
     done(null, user);
   });
-  
-  passport.deserializeUser(function(user, done) {
+
+  passport.deserializeUser(function (user, done) {
     done(null, user);
   });
   passport.use(
@@ -25,7 +25,7 @@ module.exports = (passport) => {
             function (err, user) {
               if (err) return done(err);
               if (user.length) {
-                return done(null, user);
+                return done(null, { googleID: user[0].googleID });
               } else {
                 connection.query(
                   `INSERT INTO accounts
@@ -36,7 +36,7 @@ module.exports = (passport) => {
                     if (err) {
                       return done(err);
                     }
-                    return done(null, profile);
+                    return done(null, { googleID: profile.id });
                   }
                 );
               }

@@ -3,10 +3,7 @@ defineProps<{
   handleFirstNameChange: (e: any) => void
   handleLastNameChange: (e: any) => void
   uploadProfileImage: (e: any) => void
-  previewImage: string
-  firstname: string
-  lastname: string
-email: string
+  profileLinks:{}|any
 
 }>()
 </script>
@@ -23,14 +20,15 @@ email: string
       <p class="text-sm text-gray-200">Profile picture</p>
       <div class="w-8/12 flex gap-5 items-center">
         <div class="rounded-lg text-xs relative">
+          
           <img
-            v-if="previewImage.length > 0"
-            :src="previewImage"
-            class="w-48 h-48 rounded-lg"
+            
+            :src="profileLinks.profilepic"
+            class="w-48 h-48 rounded-full"
             alt="profile-upload"
           />
-          <img v-else src="../assets/images/placeholder-image.png" class="w-48" alt="icon-upload" />
-          <div class="absolute top-0 w-full h-full">
+         
+          <div class="absolute top-0 w-full rounded-full bg-black/30 h-full">
             <label
               class="text-white flex h-full flex-col justify-center items-center"
               for="file_input"
@@ -59,7 +57,7 @@ email: string
       <div class="flex justify-between items-center">
         <label class="text-sm">First name <sup class="text-xs">*</sup></label>
         <input
-          :value="firstname"
+          :value="profileLinks.firstname"
           @change="handleFirstNameChange"
           required
           type="text"
@@ -71,14 +69,14 @@ email: string
         <input
           @change="handleLastNameChange"
           required
-          :value="lastname"
+          :value="profileLinks.lastname"
           type="text"
           class="focus:outline-purple-300  rounded-lg px-4 py-3 w-8/12"
         />
       </div>
       <div class="flex justify-between items-center">
         <label class="text-sm">Email</label>
-        <input type="text" :value="email" readonly class="focus:outline-0 opacity-60 rounded-lg px-4 py-3 w-8/12" />
+        <input type="text" :value="profileLinks.email" readonly class="focus:outline-0 opacity-60 rounded-lg px-4 py-3 w-8/12" />
       </div>
     </div>
   </div>

@@ -25,3 +25,4 @@ const getUser = async function (req, res) {
 };
 
 module.exports = { getUser };
+// update user name, profilepic

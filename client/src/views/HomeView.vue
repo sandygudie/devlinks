@@ -4,8 +4,14 @@ import Header from '../components/Header.vue'
 import Links from '../components/Links.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
+import { onMounted } from 'vue'
+import { getProfile } from '@/utilis/api/profile'
+import { login } from '@/utilis/api/auth'
+import router from '@/router'
+import { updateProfile} from '@/utilis/api/link'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+
 const profileLinks = ref<{} | any>({
   firstname: '',
   lastname: '',
@@ -13,17 +19,13 @@ const profileLinks = ref<{} | any>({
   devlinks: [],
   email: ''
 })
+let updatedLinks = <{} | any>{}
 const isLoading = ref<boolean>(false)
 let userId: string | any
 const selected: number = 5
 let previewImage = ref('')
 const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
-import { onMounted } from 'vue'
-import { getProfile } from '@/utilis/api/profile'
-import { login } from '@/utilis/api/auth'
-import router from '@/router'
-import { addLink } from '@/utilis/api/link'
 
 let { matches } = window.matchMedia('(max-width: 600px)')
 
@@ -49,13 +51,14 @@ onMounted(async () => {
 
 async function profile() {
   const profileResponse = await getProfile(userId)
-  console.log(profileResponse.data[0])
+
   if (profileResponse.success) {
     profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
     profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]
     profileLinks.value.email = profileResponse.data[0].email
     profileLinks.value.devlinks = profileResponse.data[0].links || []
     profileLinks.value.profilepic = profileResponse.data[0].profilepic
+    updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
   }
 }
 function toggleActive(active: 'links' | 'profile') {
@@ -67,7 +70,7 @@ function toggledisplay(display: 'editor' | 'preview') {
 
 const uploadProfileImage = (e: any) => {
   const file = e.target.files[0]
-  previewImage.value = URL.createObjectURL(file)
+  profileLinks.value.profilepic = URL.createObjectURL(file)
 }
 
 const handleFirstNameChange = (e: { target: { value: any } }) => {
@@ -92,17 +95,16 @@ let removeList = (index: number) => {
 }
 
 const handleSubmit = async () => {
-  // profileLinks.value.profilepic = previewImage
-  // profileLinks.value.lastname = lastname
-  // profileLinks.value.devlinks = devLinks
-  // profileLinks.value.firstname = firstname
+  updatedLinks=JSON.parse(JSON.stringify(profileLinks.value))
   let userDetails = {
-    name: profileLinks.value.firstname + ' ' + profileLinks.value.lastname,
-    links: profileLinks.value.devlinks
+    name: updatedLinks.firstname + ' ' + updatedLinks.lastname,
+    profilepic:updatedLinks.profilepic,
+    links: updatedLinks.devlinks
   }
+  console.log(updatedLinks)
   try {
-    let response = await addLink(userId, userDetails)
-    console.log(response)
+    let response = await updateProfile(userId, userDetails)
+
     if (response.success) {
       toast.success('Link Saved', {
         autoClose: 1000,
@@ -159,25 +161,25 @@ const handleLinkChange = (event: any, index: number) => {
           class="bg-white w-5/12 p-8 rounded-lg flex flex-col justify-center h-full items-center relative"
         >
           <div class="absolute h-[430px] w-[200px] bg-white z-20">
-            <div class="my-8 mx-auto text-center">
+            <div class="my-6 mx-auto text-center">
               <img
                 :src="profileLinks.profilepic || previewImage"
                 class="w-20 mx-auto h-20 rounded-full border border-gray-400"
                 alt="profile-upload"
               />
               <!-- <div v-else class="bg-gray-400 rounded-full w-20 mx-auto h-20"></div> -->
-              <p :class="`text-xs h-3 mt-2  text-sm rounded-lg`">
+              <p :class="`mt-2 font-bold rounded-lg`">
                 {{ profileLinks.firstname + ' ' + profileLinks.lastname }}
               </p>
-              <p :class="`text-xs h-3 mt-2  text-sm rounded-lg`">
+              <p :class="`text-xs text-sm rounded-lg`">
                 {{ profileLinks.email }}
               </p>
             </div>
-            <div class="py-3 px-1 my-6">
+            <div class="py-1 px-1 my-2">
               <template v-for="item in profileLinks.devlinks" :key="item.id">
                 <div
                   v-if="item.name"
-                  class="text-sm px-4 flex no-underline justify-between px-1.5 my-3 bg-gray-400 text-white text-sm h-8 rounded-lg"
+                  class="text-sm px-4 flex no-underline justify-between px-1.5 my-4 bg-gray-400 text-white text-sm h-8 rounded-lg"
                   :style="{ backgroundColor: item.color }"
                 >
                   <span class="flex items-center gap-3">
@@ -224,12 +226,11 @@ const handleLinkChange = (event: any, index: number) => {
           />
           <Profile
             v-else
-            :email="profileLinks.email"
-            :firstname="profileLinks.firstname"
-            :lastname="profileLinks.lastname"
+            :profileLinks="profileLinks"
+            
             :handleFirstNameChange="handleFirstNameChange"
             :handleLastNameChange="handleLastNameChange"
-            :previewImage="previewImage"
+       
             :uploadProfileImage="uploadProfileImage"
           />
 
@@ -251,9 +252,8 @@ const handleLinkChange = (event: any, index: number) => {
       </main>
     </div>
     <Preview
-      :email="profileLinks.email"
       :toggledisplay="toggledisplay"
-      :profileLinks="profileLinks"
+      :updatedLinks="updatedLinks"
       v-else-if="isDisplay === 'preview'"
     />
   </div>

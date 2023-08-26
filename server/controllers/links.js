@@ -4,9 +4,9 @@ const addLink = async function (req, res) {
   try {
     const { userId } = req.query;
 
-    let { name, links } = req.body;
+    let { name, links ,profilepic} = req.body;
 
-    if (!userId || !req.body || !name || !links) {
+    if (!userId || !req.body ) {
       return res
         .status(400)
         .json({ success: "false", message: "Invalid Request" });
@@ -21,8 +21,8 @@ const addLink = async function (req, res) {
           if (links.length > 5)
             return res.status(400).json({ message: "Maximum amount exceeded" });
           connection.query(
-            `UPDATE accounts SET name = ?, links = ? WHERE googleID = '${userId}'`,
-            [name, JSON.stringify(links)],
+            `UPDATE accounts SET name = ?, profilepic=?, links = ? WHERE googleID = '${userId}'`,
+            [name,profilepic,JSON.stringify(links)],
             (err) => {
               if (err) {
                 return res
