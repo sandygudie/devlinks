@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
@@ -17,13 +18,13 @@ app.use(
 
 // parse cookies
 app.use(cookieParser());
-
+// console.log(process.env)
 // initalize passport
 app.use(passport.initialize());
 
 app.use(passport.session());
 
-app.use(cors({ credentials: true, origin: "https://devlinks-xvu7.vercel.app" }));
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +47,8 @@ app.use(middleware.defaultErrorHandler);
 module.exports = app;
 
 
+// deploy to vercer
+// add links to DB
 // replace local host with data (using env)
 // error handling
 // check cookies

@@ -29,6 +29,7 @@ let previewImage = ref('')
 const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
 
+
 let { matches } = window.matchMedia('(max-width: 600px)')
 
 onMounted(async () => {

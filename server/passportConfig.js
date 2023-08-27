@@ -1,4 +1,4 @@
-require("dotenv").config({ path: ".env.local" });
+
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const connection = require("./db/db");
 
@@ -15,7 +15,7 @@ module.exports = (passport) => {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "https://devlinks-iota.vercel.app/api/v1/auth/google/callback",
+        callbackURL: "/api/v1/auth/google/callback",
         passReqToCallback: true,
       },
       async (request, accessToken, refreshToken, profile, done) => {
