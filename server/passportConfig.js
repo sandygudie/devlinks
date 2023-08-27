@@ -25,7 +25,7 @@ module.exports = (passport) => {
             function (err, user) {
               if (err) return done(err);
               if (user.length) {
-                return done(null, { googleID: user[0].googleID });
+                return done(null, user);
               } else {
                 connection.query(
                   `INSERT INTO accounts
@@ -36,7 +36,7 @@ module.exports = (passport) => {
                     if (err) {
                       return done(err);
                     }
-                    return done(null, { googleID: profile.id });
+                    return done(null, profile);
                   }
                 );
               }
