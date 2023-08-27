@@ -35,8 +35,8 @@ let { matches } = window.matchMedia('(max-width: 600px)')
 onMounted(async () => {
   isLoading.value = true
   try {
-    userId=getUserId()
-    if(!userId) return router.push('/login')
+    // userId=getUserId()
+    // if(!userId) return router.push('/login')
     const loginResponse = await login()
     // console.log(loginResponse)
     if (loginResponse.success) {
