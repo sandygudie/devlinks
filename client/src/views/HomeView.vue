@@ -40,7 +40,7 @@ onMounted(async () => {
     console.log(loginResponse)
     if (loginResponse.success) {
       userId = loginResponse.userId
-      profile()
+      // profile()
     }
   } catch (err: any) {
     toast.error(err.toString(), {
