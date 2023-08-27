@@ -1,23 +1,25 @@
 <script lang="ts" setup>
 let { MODE } = import.meta.env
-import {login} from "../utilis/api/auth"
 
 const googleLogin =
   MODE === 'development'
     ? 'http://localhost:8000/api/v1/auth/google'
     : 'https://devlinks-api.vercel.app/api/v1/auth/google'
+
+    const loginHandler = () => window.open(googleLogin, "_self")
+
 </script>
 
 <template>
   <div class="flex items-center justify-center h-screen gap-12 flex-col">
     <img src="@/assets/icons/logo-devlinks-small.svg" alt="devlink logo" width="100" height="100" />
-    <div @click="login"
+    <button
+    @click="loginHandler"
       class="shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:shadow-[0_3px_10px_rgb(0,0,0,0.40)] font-extraBold flex items-center rounded-xl px-12 py-3"
-      
-      target="_self"
+  
     >
       <img src="@/assets/icons/google_icon.webp" alt="devlink logo" width="40" height="40" />
-      Sign in with Google</div
+      Sign in with Google</button
     >
   </div>
 </template>
