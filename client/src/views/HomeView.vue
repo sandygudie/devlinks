@@ -6,9 +6,9 @@ import Links from '../components/Links.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
-import { onMounted} from 'vue'
+import { onMounted } from 'vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
-import { verification} from '@/utilis/api/auth'
+import { verification } from '@/utilis/api/auth'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -29,7 +29,6 @@ let previewImage = ref('')
 const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
 
-
 let { matches } = window.matchMedia('(max-width: 600px)')
 
 onMounted(async () => {
@@ -38,7 +37,7 @@ onMounted(async () => {
     // userId=getUserId()
     // if(!userId) return router.push('/login')
     const loginResponse = await verification()
-    // console.log(loginResponse)
+    console.log(loginResponse)
     if (loginResponse.success) {
       userId = loginResponse.userId
       profile()
