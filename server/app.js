@@ -23,7 +23,7 @@ app.use(passport.initialize());
 
 app.use(passport.session());
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cors({ credentials: true, origin: "https://devlinks-xvu7.vercel.app" }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
