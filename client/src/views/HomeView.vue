@@ -8,7 +8,7 @@ import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
 import { onMounted} from 'vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
-import { login } from '@/utilis/api/auth'
+import { verification} from '@/utilis/api/auth'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -36,7 +36,7 @@ onMounted(async () => {
   try {
     // userId=getUserId()
     // if(!userId) return router.push('/login')
-    const loginResponse = await login()
+    const loginResponse = await verification()
     // console.log(loginResponse)
     if (loginResponse.success) {
       userId = loginResponse.userId
