@@ -7,12 +7,13 @@ import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
 
-import { onMounted, onBeforeMount } from 'vue'
+import { onMounted} from 'vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
 import { login } from '@/utilis/api/auth'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { getUserId } from '@/utilis'
 
 const profileLinks = ref<{} | any>({
   firstname: '',
@@ -31,12 +32,13 @@ const isDisplay = ref<'editor' | 'preview'>('editor')
 
 let { matches } = window.matchMedia('(max-width: 600px)')
 
-
 onMounted(async () => {
   isLoading.value = true
   try {
+    userId=getUserId()
+    if(!userId) return router.push('/login')
     const loginResponse = await login()
-    console.log(loginResponse)
+    // console.log(loginResponse)
     if (loginResponse.success) {
       userId = loginResponse.userId
       profile()
@@ -54,7 +56,6 @@ onMounted(async () => {
 
 async function profile() {
   const profileResponse = await getProfile(userId)
-
   if (profileResponse.success) {
     profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
     profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]

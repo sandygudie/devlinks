@@ -2,7 +2,7 @@ const Router = require("express");
 const authRouter = Router();
 const passport = require("passport");
 require("../passportConfig")(passport);
-const CLIENT_HOME_PAGE_URL = "http://localhost:5173";
+const CLIENT_HOME_PAGE_URL = "https://devlinks-xvu7.vercel.app/";
 const { isUserVerified } = require("../middlewares/userCheck");
 authRouter.get(
   "/google",

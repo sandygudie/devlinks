@@ -1,6 +1,6 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 
-const baseURL = 'http://localhost:8000/api/v1'
+const baseURL = 'https://devlinks-iota.vercel.app/api/v1'
 
 async function makeApiCall<T = any>(
   url: string,
