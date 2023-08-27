@@ -28,13 +28,7 @@ app.use(cors({ credentials: true, origin: process.env.CLIENT_URL}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const isLoggedIn = (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.sendStatus(401);
-  }
-};
+
 app.get("/", (req, res) =>
   res.status(200).send({ message: "Welcome to devlinks." })
 );
