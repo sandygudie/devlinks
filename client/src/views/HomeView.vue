@@ -6,7 +6,6 @@ import Links from '../components/Links.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
-
 import { onMounted} from 'vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
 import { login } from '@/utilis/api/auth'

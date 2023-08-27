@@ -24,7 +24,7 @@ async function makeApiCall<T = any>(
     return data
   } catch (error: any) {
     if (error.response.status === 403 || error.response.status === 401) {
-      window.location.replace("/");
+      window.location.replace("/login");
       throw new Error(error.response?.data?.message || error.message)
     }
     throw new Error(error.response?.data?.message || error.message)
