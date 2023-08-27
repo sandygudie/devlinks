@@ -45,7 +45,7 @@ onMounted(async () => {
   } catch (err: any) {
     toast.error(err.toString(), {
       position: toast.POSITION.TOP_CENTER,
-      onClose: () => router.push('/login'),
+      // onClose: () => router.push('/login'),
       bodyClassName: '!text-red '
     })
   } finally {
