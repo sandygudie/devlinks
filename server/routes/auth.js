@@ -20,8 +20,6 @@ authRouter.get(
 // when login is successful, retrieve user info
 
 authRouter.get("/google/success", isUserVerified, (req, res) => {
-
-  
   res.status(200).json({
     success: true,
     message: "user successfully authenticated",

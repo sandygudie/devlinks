@@ -1,7 +1,5 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 
-
-
 const baseURL = 'http://localhost:8000/api/v1'
 
 async function makeApiCall<T = any>(
@@ -26,10 +24,8 @@ async function makeApiCall<T = any>(
     return data
   } catch (error: any) {
     if (error.response.status === 403 || error.response.status === 401) {
- 
-      // window.location.href="/login"
+      window.location.replace("/");
       throw new Error(error.response?.data?.message || error.message)
-      
     }
     throw new Error(error.response?.data?.message || error.message)
   }

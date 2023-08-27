@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="flex items-center justify-center h-full gap-12 flex-col">
+  <div class="flex items-center justify-center h-screen gap-12 flex-col">
     <img 
     src="@/assets/icons/logo-devlinks-small.svg" 
     

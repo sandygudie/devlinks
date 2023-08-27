@@ -4,12 +4,14 @@ import ProfileIcon from './icons/IconProfile.vue'
 import IconPreview from './icons/IconPreview.vue'
 
 defineProps<{
-  devLinks: {}
+  devLinks: []|any
   isActive: string
   toggleActive: (active: 'links' | 'profile') => void
   toggledisplay: (display: 'editor' | 'preview') => void
 }>()
+
 let { matches } = window.matchMedia('(max-width: 600px)')
+
 </script>
 <template>
   <header className="rounded-lg p-3 bg-white flex text-gray-200 justify-between items-center">
@@ -28,7 +30,7 @@ let { matches } = window.matchMedia('(max-width: 600px)')
         <span v-if="!matches"> Profile Details</span>
       </button>
     </div>
-    <button @click="toggledisplay('preview')" :disabled="Object.values(devLinks).length <= 0" :class="`${Object.keys(devLinks).length > 0
+    <button @click="toggledisplay('preview')" :disabled="devLinks?.length <= 0" :class="`${devLinks?.length > 0
         ? 'border-purple-300 text-purple-300 hover:bg-purple-300 hover:text-white'
         : 'text-purple-300/20 border-purple-300/20'
       } rounded-lg py-2 px-3 text-sm  border`">

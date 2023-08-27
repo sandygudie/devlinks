@@ -1,14 +1,16 @@
 <script setup lang="ts">
+import router from '@/router'
 import { ref } from 'vue'
 import Header from '../components/Header.vue'
 import Links from '../components/Links.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
-import { onMounted } from 'vue'
-import { getProfile } from '@/utilis/api/profile'
+import Spinner from '../components/Spinner.vue'
+
+import { onMounted, onBeforeMount } from 'vue'
+import { getProfile, updateProfile } from '@/utilis/api/profile'
 import { login } from '@/utilis/api/auth'
-import router from '@/router'
-import { updateProfile} from '@/utilis/api/link'
+
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 
@@ -28,6 +30,7 @@ const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
 
 let { matches } = window.matchMedia('(max-width: 600px)')
+
 
 onMounted(async () => {
   isLoading.value = true
@@ -91,17 +94,16 @@ const addnewLink = async () => {
 }
 let removeList = (index: number) => {
   profileLinks.value.devlinks.splice(index, 1)
-  console.log(profileLinks.value)
 }
 
 const handleSubmit = async () => {
-  updatedLinks=JSON.parse(JSON.stringify(profileLinks.value))
+  updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
   let userDetails = {
     name: updatedLinks.firstname + ' ' + updatedLinks.lastname,
-    profilepic:updatedLinks.profilepic,
+    profilepic: updatedLinks.profilepic,
     links: updatedLinks.devlinks
   }
-  console.log(updatedLinks)
+
   try {
     let response = await updateProfile(userId, userDetails)
 
@@ -125,33 +127,21 @@ const handlePlatformChange = (value: any, index: number) => {
   result.name = value.label
   result.color = value.color
 }
-const isValidHttpUrl = (str: string) => {
-  const pattern = new RegExp(
-    '^(https?:\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$', // fragment locator
-    'i'
-  )
-  return pattern.test(str)
-}
 
 const handleLinkChange = (event: any, index: number) => {
-  // const isValidUrl = isValidHttpUrl(event.target.value)
-  // console.log(isValidUrl)
   const result = profileLinks.value.devlinks.find((item: { id: number }) => item.id === index)
   result.link = event.target.value
 }
 </script>
 <template>
-  <span v-if="Object.keys(profileLinks).length < 0">loading</span>
+  <span v-if="isLoading">
+    <Spinner width="80px" height="80px" />
+  </span>
   <div v-else class="h-full">
     <div class="h-full p-6" v-if="isDisplay === 'editor'">
       <Header
         :toggledisplay="toggledisplay"
-        :devLinks="profileLinks.devlinks"
+        :devLinks="updatedLinks.devlinks"
         :toggleActive="toggleActive"
         :isActive="isActive"
       />
@@ -227,10 +217,8 @@ const handleLinkChange = (event: any, index: number) => {
           <Profile
             v-else
             :profileLinks="profileLinks"
-            
             :handleFirstNameChange="handleFirstNameChange"
             :handleLastNameChange="handleLastNameChange"
-       
             :uploadProfileImage="uploadProfileImage"
           />
 
