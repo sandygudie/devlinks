@@ -12,7 +12,7 @@ authRouter.get(
 authRouter.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/google/success",
+    successRedirect: "https://devlinks-api.onrender.com/api/v1/auth/google/success",
     failureRedirect: "/google/failure",
   })
 );
