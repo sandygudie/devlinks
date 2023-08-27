@@ -2,15 +2,15 @@ const Router = require("express");
 const authRouter = Router();
 const passport = require("passport");
 require("../passportConfig")(passport);
-const CLIENT_HOME_PAGE_URL = "https://devlinks-xvu7.vercel.app/";
+const CLIENT_HOME_PAGE_URL = "https://devlinks-xvu7.vercel.app";
 const { isUserVerified } = require("../middlewares/userCheck");
 authRouter.get(
-  "/google",
+  "auth/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
 authRouter.get(
-  "/google/callback",
+  "auth/google/callback",
   passport.authenticate("google", {
     successRedirect: CLIENT_HOME_PAGE_URL,
     failureRedirect: "/google/failure",
@@ -19,7 +19,7 @@ authRouter.get(
 
 // when login is successful, retrieve user info
 
-authRouter.get("/google/success", isUserVerified, (req, res) => {
+authRouter.get("auth/google/success", isUserVerified, (req, res) => {
   res.status(200).json({
     success: true,
     message: "user successfully authenticated",
@@ -28,7 +28,7 @@ authRouter.get("/google/success", isUserVerified, (req, res) => {
   });
 });
 
-authRouter.get("/google/failure", (req, res) => {
+authRouter.get("auth/google/failure", (req, res) => {
   res.status(401).json({
     success: false,
     message: "user failed to authenticate.",

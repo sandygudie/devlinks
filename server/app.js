@@ -46,8 +46,6 @@ app.use(middleware.defaultErrorHandler);
 module.exports = app;
 
 
-// deploy to vercer
-// add links to DB
 // replace local host with data (using env)
 // error handling
 // check cookies
