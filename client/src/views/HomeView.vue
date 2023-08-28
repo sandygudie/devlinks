@@ -40,9 +40,6 @@ onMounted(async () => {
    let loginResponse = await axios("https://devlinks-api.onrender.com/api/v1/auth/google/success", {
                 method: "get",
                 data: null,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                },
                 withCredentials: true
             })
     // const loginResponse = await verification()
