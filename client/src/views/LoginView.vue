@@ -4,7 +4,7 @@ let { MODE } = import.meta.env
 const googleLogin =
   MODE === 'development'
     ? 'http://localhost:8000/api/v1/auth/google'
-    : 'https://devlinks-api.onrender.com/api/v1/auth/google'
+    : 'https://devlinks-api.vercel.app/api/v1/auth/google'
 
     const loginHandler = () => window.open(googleLogin, "_self")
 

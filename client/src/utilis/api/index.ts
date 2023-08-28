@@ -2,7 +2,7 @@ import axios, { type AxiosRequestConfig } from 'axios'
 let { MODE } = import.meta.env
 
 const baseURL =
-  MODE === 'development' ? 'http://localhost:8000/api/v1' : 'https://devlinks-api.onrender.com/api/v1'
+  MODE === 'development' ? 'http://localhost:8000/api/v1' : 'https://devlinks-api.vercel.app'
 
 async function makeApiCall<T = any>(
   url: string,
