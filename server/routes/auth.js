@@ -2,7 +2,6 @@ const Router = require("express");
 const authRouter = Router();
 const passport = require("passport");
 require("../passportConfig")(passport);
-const CLIENT_HOME_PAGE_URL = process.env.CLIENT_URL;
 const { isUserVerified } = require("../middlewares/userCheck");
 authRouter.get(
   "/auth/google",
@@ -12,7 +11,7 @@ authRouter.get(
 authRouter.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: CLIENT_HOME_PAGE_URL,
+    successRedirect: process.env.CLIENT_URL,
     failureRedirect: "/google/failure",
   })
 );
