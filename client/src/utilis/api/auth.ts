@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import makeApiCall from '.'
 
 export async function verification() {
