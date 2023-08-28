@@ -1,4 +1,3 @@
-
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const connection = require("./db/db");
 
@@ -10,12 +9,13 @@ module.exports = (passport) => {
   passport.deserializeUser(function (user, done) {
     done(null, user);
   });
+
   passport.use(
     new GoogleStrategy(
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "https://devlinks-api.vercel.app/api/v1/auth/google/callback",
+        callbackURL: process.env.GOOGLE_CALLBACK,
         passReqToCallback: true,
       },
       async (request, accessToken, refreshToken, profile, done) => {
