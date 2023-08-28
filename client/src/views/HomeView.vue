@@ -13,6 +13,7 @@ import { verification } from '@/utilis/api/auth'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getUserId } from '@/utilis'
+import axios from 'axios'
 
 const profileLinks = ref<{} | any>({
   firstname: '',
@@ -36,12 +37,20 @@ onMounted(async () => {
   try {
     // userId=getUserId()
     // if(!userId) return router.push('/login')
-    const loginResponse = await verification()
+   let loginResponse = await axios("https://devlinks-api.onrender.com/api/v1/auth/google/success", {
+                method: "get",
+                data: null,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                withCredentials: true
+            })
+    // const loginResponse = await verification()
     console.log(loginResponse)
-    if (loginResponse.success) {
-      userId = loginResponse.userId
-      // profile()
-    }
+    // if (loginResponse.success) {
+    //   userId = loginResponse.userId
+    //   // profile()
+    // }
   } catch (err: any) {
     toast.error(err.toString(), {
       position: toast.POSITION.TOP_CENTER,
