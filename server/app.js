@@ -13,8 +13,7 @@ app.use(
     name: "session",
     keys: [COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100,
-    // secure:false,
-    // SameSite:"none"
+    SameSite:"none"
   })
 );
 
