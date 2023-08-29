@@ -6,14 +6,13 @@ import Links from '../components/Links.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
-import { onMounted } from 'vue'
+import { onMounted} from 'vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
-import { verification } from '@/utilis/api/auth'
+import { verification} from '@/utilis/api/auth'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getUserId } from '@/utilis'
-import axios from 'axios'
 
 const profileLinks = ref<{} | any>({
   firstname: '',
@@ -30,6 +29,7 @@ let previewImage = ref('')
 const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
 
+
 let { matches } = window.matchMedia('(max-width: 600px)')
 
 onMounted(async () => {
@@ -37,21 +37,16 @@ onMounted(async () => {
   try {
     // userId=getUserId()
     // if(!userId) return router.push('/login')
-   let loginResponse = await axios("https://devlinks-api.onrender.com/api/v1/auth/google/success", {
-                method: "get",
-                data: null,
-                withCredentials: true
-            })
-    // const loginResponse = await verification()
+    const loginResponse = await verification()
     console.log(loginResponse)
-    // if (loginResponse.success) {
-    //   userId = loginResponse.userId
-    //   // profile()
-    // }
+    if (loginResponse.success) {
+      userId = loginResponse.userId
+      profile()
+    }
   } catch (err: any) {
     toast.error(err.toString(), {
       position: toast.POSITION.TOP_CENTER,
-      // onClose: () => router.push('/login'),
+      onClose: () => router.push('/login'),
       bodyClassName: '!text-red '
     })
   } finally {
