@@ -10,7 +10,6 @@ const getUser = async function (req, res) {
       `SELECT * FROM accounts WHERE googleId = '${userId}'`,
       function (err, data) {
         if (err) return res.status(401).json({ error: "Invalid request" });
-
         if (data.length) {
           return res
             .status(200)

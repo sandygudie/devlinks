@@ -2,19 +2,32 @@
 const express = require("express");
 const cors = require("cors");
 const session = require('express-session')
-// const cookieSession = require("cookie-session");
+const cookieSession = require("cookie-session");
 const middleware = require("./middlewares/error-handler");
 const passport = require("passport");
 const apiRouter = require("./routes");
 // const cookieParser = require("cookie-parser");
 const app = express();
 const { COOKIE_KEY } = process.env;
-app.use(session({
+app.use( cookieSession({
+  cookie:{
+    secure: true,
+    maxAge:60000
+       },
   secret: "secret",
   resave: false ,
   saveUninitialized: true ,
 }))
 
+// pp.use(
+//   cookieSession({
+//     name: "session",
+//     keys: [COOKIE_KEY],
+//     maxAge: 24 * 60 * 60 * 100,
+//     secure:false,
+//     SameSite:"none"
+//   })
+// );
 // parse cookies
 // app.use(cookieParser());
 // console.log(process.env)

@@ -8,7 +8,7 @@ import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
 import { onMounted} from 'vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
-import { verification} from '@/utilis/api/auth'
+
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -32,27 +32,27 @@ const isDisplay = ref<'editor' | 'preview'>('editor')
 
 let { matches } = window.matchMedia('(max-width: 600px)')
 
-onMounted(async () => {
-  isLoading.value = true
-  try {
-    // userId=getUserId()
-    // if(!userId) return router.push('/login')
-    const loginResponse = await verification()
-    console.log(loginResponse)
-    if (loginResponse.success) {
-      userId = loginResponse.userId
-      profile()
-    }
-  } catch (err: any) {
-    toast.error(err.toString(), {
-      position: toast.POSITION.TOP_CENTER,
-      onClose: () => router.push('/login'),
-      bodyClassName: '!text-red '
-    })
-  } finally {
-    isLoading.value = false
-  }
-})
+// onMounted(async () => {
+//   isLoading.value = true
+//   try {
+//     // userId=getUserId()
+//     // if(!userId) return router.push('/login')
+//     const loginResponse = await verification()
+//     console.log(loginResponse)
+//     if (loginResponse.success) {
+//       userId = loginResponse.userId
+//       profile()
+//     }
+//   } catch (err: any) {
+//     toast.error(err.toString(), {
+//       position: toast.POSITION.TOP_CENTER,
+//       onClose: () => router.push('/login'),
+//       bodyClassName: '!text-red '
+//     })
+//   } finally {
+//     isLoading.value = false
+//   }
+// })
 
 async function profile() {
   const profileResponse = await getProfile(userId)
