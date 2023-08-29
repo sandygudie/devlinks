@@ -8,14 +8,21 @@ authRouter.get(
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
+// authRouter.get(
+//   "/auth/google/callback",
+//   passport.authenticate("google", {
+//     successRedirect: process.env.CLIENT_URL,
+//     failureRedirect: "/google/failure",
+//   })
+// );
+
 authRouter.get(
   "/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: process.env.CLIENT_URL,
-    failureRedirect: "/google/failure",
-  })
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect(process.env.CLIENT_URL);}
 );
-
 // when login is successful, retrieve user info
 authRouter.get("/auth/google/success", isUserVerified, (req, res) => {
   res.status(200).json({

@@ -1,4 +1,5 @@
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
+
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const connection = require("./db/db");
 
 module.exports = (passport) => {
@@ -9,6 +10,7 @@ module.exports = (passport) => {
   passport.deserializeUser(function (user, done) {
     done(null, user);
   });
+
 
   passport.use(
     new GoogleStrategy(
