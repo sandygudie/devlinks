@@ -18,7 +18,7 @@ authRouter.get(
 
 authRouter.get(
   "/auth/google/callback",
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google',  { session: false },{ failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect(process.env.CLIENT_URL);}
