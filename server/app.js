@@ -1,25 +1,22 @@
 
 const express = require("express");
 const cors = require("cors");
-const cookieSession = require("cookie-session");
+const session = require('express-session')
+// const cookieSession = require("cookie-session");
 const middleware = require("./middlewares/error-handler");
 const passport = require("passport");
 const apiRouter = require("./routes");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const app = express();
 const { COOKIE_KEY } = process.env;
-app.use(
-  cookieSession({
-    name: "session",
-    keys: [COOKIE_KEY],
-    maxAge: 24 * 60 * 60 * 100,
-    secure:true,
-    SameSite:"none"
-  })
-);
+app.use(session({
+  secret: "secret",
+  resave: false ,
+  saveUninitialized: true ,
+}))
 
 // parse cookies
-app.use(cookieParser());
+// app.use(cookieParser());
 // console.log(process.env)
 // initalize passport
 app.use(passport.initialize());
