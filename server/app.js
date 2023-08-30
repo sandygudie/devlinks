@@ -1,25 +1,21 @@
-
 const express = require("express");
 const cors = require("cors");
-const session = require('express-session')
-const cookieSession = require("cookie-session");
 const middleware = require("./middlewares/error-handler");
-const passport = require("passport");
 const apiRouter = require("./routes");
 // const cookieParser = require("cookie-parser");
 const app = express();
-const { COOKIE_KEY } = process.env;
-app.use( cookieSession({
-  cookie:{
-    secure: true,
-    maxAge:60000
-       },
-  secret: "secret",
-  resave: false ,
-  saveUninitialized: true ,
-}))
+// const { COOKIE_KEY } = process.env;
+// app.use( cookieSession({
+//   cookie:{
+//     secure: true,
+//     maxAge:60000
+//        },
+//   secret: "secret",
+//   resave: false ,
+//   saveUninitialized: true ,
+// }))
 
-// pp.use(
+// app.use(
 //   cookieSession({
 //     name: "session",
 //     keys: [COOKIE_KEY],
@@ -32,11 +28,8 @@ app.use( cookieSession({
 // app.use(cookieParser());
 // console.log(process.env)
 // initalize passport
-app.use(passport.initialize());
 
-app.use(passport.session());
-
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL}));
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,16 +39,9 @@ app.get("/", (req, res) =>
 );
 app.use("/api/v1", apiRouter);
 
-middleware
+middleware;
 app.use(middleware.unknownEndpoint);
 app.use(middleware.defaultErrorHandler);
 
 module.exports = app;
 
-
-// deploy to vercer
-// add links to DB
-// replace local host with data (using env)
-// error handling
-// check cookies
-// add a qr code scanner
