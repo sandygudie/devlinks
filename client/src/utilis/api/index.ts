@@ -2,7 +2,7 @@ import axios, { type AxiosRequestConfig } from 'axios'
 let { MODE } = import.meta.env
 import { USERID, TOKEN_KEY } from '../constants'
 const baseURL = import.meta.env.VITE_API_BASEURL
- 
+ console.log(baseURL)
 
 let token
 if (typeof window !== 'undefined') {
@@ -36,9 +36,9 @@ async function makeApiCall<T = any>(
     if (error.response) {
       console.log(error.response)
       if (error.response.status === 403 || error.response.status === 401) {
-        localStorage.removeItem(TOKEN_KEY)
-        localStorage.removeItem(USERID)
-        window.location.replace('/login')
+        // localStorage.removeItem(TOKEN_KEY)
+        // localStorage.removeItem(USERID)
+        // window.location.replace('/login')
       }
     }
     throw new Error(error.response?.data?.message || error.message)
