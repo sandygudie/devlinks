@@ -11,10 +11,11 @@ const generateToken = async (user) => {
 };
 
 const verifyToken = async (req, res, next) => {
+  
   const bearerToken = req.headers.authorization;
   console.log(bearerToken);
   if (!bearerToken || !(bearerToken.search("Bearer ") === 0)) {
-    return res.status(401).json({ error: "Unauthorized", bearerToken });
+    return res.status(401).json({ error: "Unauthorized"});
   }
   const token = bearerToken.split(" ")[1];
   if (!token) return res.status(401).json({ error: "Unauthorized" });

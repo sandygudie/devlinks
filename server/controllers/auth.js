@@ -17,7 +17,7 @@ const googleLogin = async function (req, res) {
     connection.query(
       `SELECT * FROM accounts WHERE googleID = '${user.sub}'`,
       function (err, userDetails) {
-        if (err) return res.status(401).json({ error: "User does not exist" });
+        // if (err) return res.status(401).json({ error: "User does not exist" });
 
         if (userDetails.length) {
           return res.status(200).json({

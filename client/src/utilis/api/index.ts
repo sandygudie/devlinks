@@ -1,6 +1,6 @@
 import axios, { type AxiosRequestConfig } from 'axios'
-let { MODE } = import.meta.env
-import { USERID, TOKEN_KEY } from '../constants'
+
+import { TOKEN_KEY } from '../constants'
 const baseURL = import.meta.env.VITE_API_BASEURL
  console.log(baseURL)
 
@@ -8,6 +8,7 @@ let token
 if (typeof window !== 'undefined') {
   token = localStorage.getItem(TOKEN_KEY)
 }
+// console.log(token)
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }
