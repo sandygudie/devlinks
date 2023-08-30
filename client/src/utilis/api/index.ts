@@ -23,7 +23,7 @@ async function makeApiCall<T = any>(
       throw new Error('BASEURL is not defined')
     }
     const { data } = await axios({
-      withCredentials: true,
+
       url,
       method,
       data: payload,
