@@ -1,10 +1,8 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 let { MODE } = import.meta.env
 import { USERID, TOKEN_KEY } from '../constants'
-const baseURL =
-  MODE === 'development'
-    ? 'http://localhost:8000/api/v1'
-    : 'https://devlinks-api.onrender.com/api/v1'
+const baseURL = import.meta.env.VITE_API_BASEURL
+ 
 
 let token
 if (typeof window !== 'undefined') {
