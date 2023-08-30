@@ -23,7 +23,7 @@ const login = () => {
       if (result.success) {
         setToken(result.accessToken)
         setUserID(result.userID)
-        return router.push('/')
+       return window.location.replace('/')
       }
     } catch (err: any) {
       console.log(err)
