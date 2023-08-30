@@ -43,7 +43,7 @@ const googleLogin = async function (req, res) {
                   [accessToken],
                   (err, updated) => {
                   
-                    if (err) return res.status(400).json({ error: "err" });
+                   
 
                     if (updated) {
                       return res.status(200).json({
