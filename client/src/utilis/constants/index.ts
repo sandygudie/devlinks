@@ -1,3 +1,4 @@
-export const  USER_ID = 'DEVLINKS_USER_ID'
+export const  TOKEN_KEY = 'DEVLINKS_TOKEN'
+export const  USERID = 'DEVLINKS_USERID'
 
 

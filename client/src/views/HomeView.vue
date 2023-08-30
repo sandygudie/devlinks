@@ -1,19 +1,15 @@
 <script setup lang="ts">
 import router from '@/router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Header from '../components/Header.vue'
 import Links from '../components/Links.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
-import { onMounted} from 'vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
-
-
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getUserId } from '@/utilis'
-
 const profileLinks = ref<{} | any>({
   firstname: '',
   lastname: '',
@@ -29,42 +25,32 @@ let previewImage = ref('')
 const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
 
-
 let { matches } = window.matchMedia('(max-width: 600px)')
 
-// onMounted(async () => {
-//   isLoading.value = true
-//   try {
-//     // userId=getUserId()
-//     // if(!userId) return router.push('/login')
-//     const loginResponse = await verification()
-//     console.log(loginResponse)
-//     if (loginResponse.success) {
-//       userId = loginResponse.userId
-//       profile()
-//     }
-//   } catch (err: any) {
-//     toast.error(err.toString(), {
-//       position: toast.POSITION.TOP_CENTER,
-//       onClose: () => router.push('/login'),
-//       bodyClassName: '!text-red '
-//     })
-//   } finally {
-//     isLoading.value = false
-//   }
-// })
-
-async function profile() {
-  const profileResponse = await getProfile(userId)
-  if (profileResponse.success) {
-    profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
-    profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]
-    profileLinks.value.email = profileResponse.data[0].email
-    profileLinks.value.devlinks = profileResponse.data[0].links || []
-    profileLinks.value.profilepic = profileResponse.data[0].profilepic
-    updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
+onMounted(async () => {
+  userId = getUserId()
+  isLoading.value = true
+  try {
+    const profileResponse = await getProfile(userId)
+    if (profileResponse.success) {
+      profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
+      profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]
+      profileLinks.value.email = profileResponse.data[0].email
+      profileLinks.value.devlinks = profileResponse.data[0].links || []
+      profileLinks.value.profilepic = profileResponse.data[0].profilepic
+      updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
+    }
+  } catch (err: any) {
+    toast.error(err.toString(), {
+      position: toast.POSITION.TOP_CENTER,
+      onClose: () => router.push('/login'),
+      bodyClassName: '!text-red '
+    })
+  } finally {
+    isLoading.value = false
   }
-}
+})
+
 function toggleActive(active: 'links' | 'profile') {
   isActive.value = active
 }
@@ -95,21 +81,24 @@ const addnewLink = async () => {
 }
 let removeList = (index: number) => {
   profileLinks.value.devlinks.splice(index, 1)
+  if (profileLinks.value.devlinks.length <= 0) {
+    handleSubmit()
+  }
 }
 
 const handleSubmit = async () => {
   updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
+
   let userDetails = {
     name: updatedLinks.firstname + ' ' + updatedLinks.lastname,
     profilepic: updatedLinks.profilepic,
     links: updatedLinks.devlinks
   }
-
+  console.log(userDetails)
   try {
     let response = await updateProfile(userId, userDetails)
-
     if (response.success) {
-      toast.success('Link Saved', {
+      toast.success('Updated!', {
         autoClose: 1000,
         theme: 'auto',
         position: toast.POSITION.BOTTOM_CENTER
@@ -140,12 +129,7 @@ const handleLinkChange = (event: any, index: number) => {
   </span>
   <div v-else class="h-full">
     <div class="h-full p-6" v-if="isDisplay === 'editor'">
-      <Header
-        :toggledisplay="toggledisplay"
-        :devLinks="updatedLinks.devlinks"
-        :toggleActive="toggleActive"
-        :isActive="isActive"
-      />
+      <Header :toggledisplay="toggledisplay" :toggleActive="toggleActive" :isActive="isActive" />
       <main class="flex justify-between h-screen gap-6 mt-6">
         <div
           v-if="!matches"

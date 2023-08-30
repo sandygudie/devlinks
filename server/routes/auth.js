@@ -1,11 +1,8 @@
 const Router = require("express");
 const authRouter = Router();
-// const passport = require("passport");
-// require("../passportConfig")(passport);
-const { isUserVerified } = require("../middlewares/userCheck");
 const { googleLogin } = require("../controllers/auth");
 
-authRouter.post("/auth/google", googleLogin);
+authRouter.post("/google", googleLogin);
 
 // authRouter.get(
 //   "/auth/google/callback",

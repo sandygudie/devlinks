@@ -7,6 +7,6 @@ export async function getProfile(userId: string) {
 }
 
 export async function updateProfile(userId: string, payload: any) {
-  const response = await makeApiCall(`/link?userId=${userId}`, 'post', payload)
+  const response = await makeApiCall(`/user?userId=${userId}`, 'post', payload)
   return response
 }

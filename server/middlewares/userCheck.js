@@ -1,4 +1,5 @@
 const isUserVerified = async (req, res, next) => {
+
   if (!req.user) {
     res.status(401).json({
       authenticated: false,
@@ -12,3 +13,4 @@ const isUserVerified = async (req, res, next) => {
 module.exports = {
   isUserVerified,
 };
+

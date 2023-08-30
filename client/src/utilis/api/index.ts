@@ -1,8 +1,18 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 let { MODE } = import.meta.env
-
+import { USERID, TOKEN_KEY } from '../constants'
 const baseURL =
-  MODE === 'development' ? 'http://localhost:8000/api/v1' : 'https://devlinks-api.onrender.com/api/v1'
+  MODE === 'development'
+    ? 'http://localhost:8000/api/v1'
+    : 'https://devlinks-api.onrender.com/api/v1'
+
+let token
+if (typeof window !== 'undefined') {
+  token = localStorage.getItem(TOKEN_KEY)
+}
+if (token) {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
+}
 
 async function makeApiCall<T = any>(
   url: string,
@@ -25,10 +35,13 @@ async function makeApiCall<T = any>(
 
     return data
   } catch (error: any) {
-    if (error.response?.status === 403 || error.response?.status === 401) {
-      // window.location.replace('/login')
+    if (error.response) {
       console.log(error.response)
-      throw new Error(error.response?.data?.message || error.message)
+      if (error.response.status === 403 || error.response.status === 401) {
+        localStorage.removeItem(TOKEN_KEY)
+        localStorage.removeItem(USERID)
+        window.location.replace('/login')
+      }
     }
     throw new Error(error.response?.data?.message || error.message)
   }

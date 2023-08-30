@@ -24,7 +24,7 @@ defineProps<{
           <img
             
             :src="profileLinks.profilepic"
-            class="w-48 h-48 rounded-full"
+            class="lg:w-48 lg:h-48 rounded-full"
             alt="profile-upload"
           />
          
