@@ -19,7 +19,7 @@ const googleLogin = async function (req, res) {
       function (err, userDetails) {
         // if (err) return res.status(401).json({ error: "User does not exist" });
 
-        if (userDetails.length) {
+        if (userDetails?.length) {
           return res.status(200).json({
             success:true,
             message: "Logged in successfully",

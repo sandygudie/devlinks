@@ -8,7 +8,7 @@ let token
 if (typeof window !== 'undefined') {
   token = localStorage.getItem(TOKEN_KEY)
 }
-// console.log(token)
+console.log(token)
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }
@@ -36,11 +36,11 @@ async function makeApiCall<T = any>(
   } catch (error: any) {
     if (error.response) {
       console.log(error.response)
-      if (error.response.status === 403 || error.response.status === 401) {
+      // if (error.response.status === 403 || error.response.status === 401) {
         // localStorage.removeItem(TOKEN_KEY)
         // localStorage.removeItem(USERID)
         // window.location.replace('/login')
-      }
+      // }
     }
     throw new Error(error.response?.data?.message || error.message)
   }
