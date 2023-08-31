@@ -2,13 +2,13 @@ import axios, { type AxiosRequestConfig } from 'axios'
 
 import { TOKEN_KEY,USERID } from '../constants'
 const baseURL = import.meta.env.VITE_API_BASEURL
- console.log(baseURL)
+
 
 let token
 if (typeof window !== 'undefined') {
   token = localStorage.getItem(TOKEN_KEY)
 }
-console.log(token)
+
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }
@@ -35,7 +35,7 @@ async function makeApiCall<T = any>(
     return data
   } catch (error: any) {
     if (error.response) {
-      // console.log(error.response)
+      console.log(error.response)
       if (error.response.status === 403 || error.response.status === 401) {
         localStorage.removeItem(TOKEN_KEY)
         localStorage.removeItem(USERID)

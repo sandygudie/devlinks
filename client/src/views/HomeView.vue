@@ -9,7 +9,7 @@ import Spinner from '../components/Spinner.vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getUserId } from '@/utilis'
+import { getUserId, removeDuplicates } from '@/utilis'
 const profileLinks = ref<{} | any>({
   firstname: '',
   lastname: '',
@@ -18,6 +18,7 @@ const profileLinks = ref<{} | any>({
   email: ''
 })
 let updatedLinks = <{} | any>{}
+let errorList = ref<number[]>([])
 const isLoading = ref<boolean>(false)
 let userId: string | any
 const selected: number = 5
@@ -87,29 +88,37 @@ let removeList = (index: number) => {
 }
 
 const handleSubmit = async () => {
-  updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
+  profileLinks.value.devlinks.map((ele: any) => (ele.link === '' ? errorList.value.push(ele.id) : null))
+ errorList.value =removeDuplicates(errorList.value)
 
-  let userDetails = {
-    name: updatedLinks.firstname + ' ' + updatedLinks.lastname,
-    profilepic: updatedLinks.profilepic,
-    links: updatedLinks.devlinks
-  }
-  console.log(userDetails)
-  try {
-    let response = await updateProfile(userId, userDetails)
-    if (response.success) {
-      toast.success('Updated!', {
-        autoClose: 1000,
-        theme: 'auto',
-        position: toast.POSITION.BOTTOM_CENTER
-      })
-    }
-  } catch (err: any) {
-    toast.error(err.toString(), {
+  if (errorList.value.length) {
+    toast.error("Missing parameter for links", {
       position: toast.POSITION.TOP_CENTER,
-      onClose: () => router.push('/login'),
       bodyClassName: '!text-red '
     })
+  } else {
+    updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
+    let userDetails = {
+      name: updatedLinks.firstname + ' ' + updatedLinks.lastname,
+      profilepic: updatedLinks.profilepic,
+      links: updatedLinks.devlinks
+    }
+    try {
+      let response = await updateProfile(userId, userDetails)
+      if (response.success) {
+        toast.success('Updated!', {
+          autoClose: 1000,
+          theme: 'auto',
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    } catch (err: any) {
+      toast.error(err.toString(), {
+        position: toast.POSITION.TOP_CENTER,
+        onClose: () => router.push('/login'),
+        bodyClassName: '!text-red '
+      })
+    }
   }
 }
 const handlePlatformChange = (value: any, index: number) => {
@@ -192,6 +201,7 @@ const handleLinkChange = (event: any, index: number) => {
           <Links
             v-if="isActive === 'links'"
             v-bind:propitems="{
+              errorList:errorList,
               devLinks: profileLinks.devlinks,
               addnewLink: addnewLink,
               removeList: removeList,
@@ -210,15 +220,16 @@ const handleLinkChange = (event: any, index: number) => {
           <div class="mt-8 bg-white">
             <hr class="w-full border-gray-400" />
             <div class="text-right my-4 mx-6">
-              <button
+              <input
+              value="Save"
                 type="submit"
                 :disabled="profileLinks.devlinks.length <= 0"
                 :class="`${
                   profileLinks.devlinks.length > 0 ? 'bg-purple-300' : 'bg-purple-300/20'
                 }  px-4 py-2 text-sm text-bold text-white rounded-lg`"
               >
-                Save
-              </button>
+              
+            
             </div>
           </div>
         </form>
@@ -233,12 +244,13 @@ const handleLinkChange = (event: any, index: number) => {
 </template>
 
 <!-- todo 
+
   dark mode
   set up eslint
   write documentation
   include link sharing to differnt media platform
-  include toast
-  bring spinner
+fix not able to submit unless open input validated
+
   
 -->
 @/utilis/api/profile

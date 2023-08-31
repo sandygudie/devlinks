@@ -8,6 +8,7 @@ defineProps<{
     id: number
     index: number
     devLinks: any
+    errorList:number[]
     removeList: (index: number) => void
     handlePlatformChange: (value: {}, index: number) => void
     handleLinkChange: (e: any, index: number) => void
@@ -79,8 +80,9 @@ const toogleDropdown = () => {
       <div class="relative">
         <img class="absolute z-10 w-5 left-4 top-3" :src="linkIcon" alt="link" />
         <input type="url" @change="propitems.handleLinkChange($event, propitems.id)"
-          class="py-3 w-full px-14 text-sm rounded-lg border border-gray-400 border-[1px]"
-          :value="propitems.devLinks[propitems.index].link" required />
+          :class="`${propitems.errorList.includes(propitems.id)?'border-red' :'border-none'} focus-visible:outline-purple-300 py-3 w-full px-14 text-sm rounded-lg border border-gray-400 border-[1px]`"
+          :value="propitems.devLinks[propitems.index].link" />
+          <span class="text-red text-xs" v-if="propitems.errorList.includes(propitems.id)">Add link</span>
       </div>
     </div>
   </div>
