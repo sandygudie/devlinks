@@ -1,26 +1,62 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 defineProps<{
   updatedLinks: {} | any
   toggledisplay: (display: 'editor' | 'preview') => void
 }>()
+const isShare = ref<boolean>(false)
+
+function toggleActive(ele: boolean) {
+  isShare.value = ele
+}
+const referralMessage = 'You can learn more about me here!!'
+
+const SHARE_MENU = [
+  {
+    name: 'Email',
+    icon: '../assets/icons/emailIcon.svg',
+    link: `mailto:?subject=Assetbase%20Referral&body=${referralMessage}`
+  },
+  {
+    name: 'Whatsapp',
+    icon: '../assets/icons/whatsappIcon.svg',
+    link: `https://api.whatsapp.com/send?text=${referralMessage}`
+  },
+  {
+    name: 'Twitter',
+    icon: '../assets/icons/twitterIcon.svg',
+    link: `https://twitter.com/intent/tweet?text=${referralMessage}`
+  },
+  {
+    name: 'Facebook',
+    icon: '../assets/icons/facebookIcon.svg',
+    link: `https://www.facebook.com/sharer/sharer.php?quote=${referralMessage}`
+  }
+]
 </script>
 
 <template>
   <div class="bg-white relative h-screen">
     <header class="absolute top-0 w-full bg-purple-300 p-6 h-64 rounded-bl-3xl rounded-br-3xl">
-<div class=" relative w-full">
-  <div class="bg-white absolute w-full z-20 px-4 py-3 rounded-lg flex items-center justify-between">
-        <button
-          @click="toggledisplay('editor')"
-          class="rounded-lg text-purple-300 border border-purple-300 text-sm py-3 px-4"
+      <div class="relative w-full">
+        <div
+          class="bg-white absolute w-full z-20 px-4 py-3 rounded-lg flex items-center justify-between"
         >
-          Back to Editor
-        </button>
-        <button @click="" class="rounded-lg text-white bg-purple-300 text-sm py-3 px-4">
-          Share Link
-        </button>
+          <button
+            @click="toggledisplay('editor')"
+            class="rounded-lg text-purple-300 border border-purple-300 text-sm py-3 px-4"
+          >
+            Back to Editor
+          </button>
+          <button
+            @click="toggleActive(true)"
+            class="rounded-lg text-white bg-purple-300 text-sm py-3 px-4"
+          >
+            Share Link
+          </button>
+        </div>
       </div>
-</div>
     </header>
     <main class="flex pt-40 items-center flex-col h-full justify-center">
       <div class="py-4 px-8 w-72 bg-white rounded-xl shadow-lg">
@@ -60,5 +96,26 @@ defineProps<{
         </div>
       </div>
     </main>
+  </div>
+  <div v-if="isShare" class="mt-12 absolute bg-black/10 h-full top-0 w-full">
+
+    <div class="h-full flex justify-center items-center flex-col">
+      <div class="bg-black w-60">
+        <a
+          :href="list.link"
+          v-for="(list) in SHARE_MENU"
+          :key="list.name"
+          class="hover:bg-white hover:text-black text-white border-b py-4 px-6 block"
+        >
+          <div class="flex items-center gap-6">
+            <img class="w-10" :src="list.icon" :alt="list.name" />
+            <span class="w-20 text-sm text-left">{{ list.name }}</span>
+
+            <div><img src="../assets/icons/icon-arrow-right.svg" class="w-4" alt="arrow" /></div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- </div> -->
   </div>
 </template>

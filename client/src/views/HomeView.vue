@@ -249,8 +249,8 @@ const handleLinkChange = (event: any, index: number) => {
   set up eslint
   write documentation
   include link sharing to differnt media platform
-fix not able to submit unless open input validated
 
+COPY URL TOO
   
 -->
-@/utilis/api/profile
+<!-- @/utilis/api/profile -->
