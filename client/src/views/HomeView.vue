@@ -250,5 +250,5 @@ const handleLinkChange = (event: any, index: number) => {
   set up eslint
   write documentation
   include link sharing to differnt media platform
-drag and drop
+drag and drop -->
 
