@@ -88,11 +88,13 @@ let removeList = (index: number) => {
 }
 
 const handleSubmit = async () => {
-  profileLinks.value.devlinks.map((ele: any) => (ele.link === '' ? errorList.value.push(ele.id) : null))
- errorList.value =removeDuplicates(errorList.value)
+  profileLinks.value.devlinks.map((ele: any) =>
+    ele.link === '' ? errorList.value.push(ele.id) : null
+  )
+  errorList.value = removeDuplicates(errorList.value)
 
   if (errorList.value.length) {
-    toast.error("Missing parameter for links", {
+    toast.error('Missing parameter for links', {
       position: toast.POSITION.TOP_CENTER,
       bodyClassName: '!text-red '
     })
@@ -201,7 +203,7 @@ const handleLinkChange = (event: any, index: number) => {
           <Links
             v-if="isActive === 'links'"
             v-bind:propitems="{
-              errorList:errorList,
+              errorList: errorList,
               devLinks: profileLinks.devlinks,
               addnewLink: addnewLink,
               removeList: removeList,
@@ -221,21 +223,20 @@ const handleLinkChange = (event: any, index: number) => {
             <hr class="w-full border-gray-400" />
             <div class="text-right my-4 mx-6">
               <input
-              value="Save"
+                value="Save"
                 type="submit"
                 :disabled="profileLinks.devlinks.length <= 0"
                 :class="`${
                   profileLinks.devlinks.length > 0 ? 'bg-purple-300' : 'bg-purple-300/20'
                 }  px-4 py-2 text-sm text-bold text-white rounded-lg`"
-              >
-              
-            
+              />
             </div>
           </div>
         </form>
       </main>
     </div>
     <Preview
+      :userId="userId"
       :toggledisplay="toggledisplay"
       :updatedLinks="updatedLinks"
       v-else-if="isDisplay === 'preview'"
@@ -249,8 +250,5 @@ const handleLinkChange = (event: any, index: number) => {
   set up eslint
   write documentation
   include link sharing to differnt media platform
+drag and drop
 
-COPY URL TOO
-  
--->
-<!-- @/utilis/api/profile -->

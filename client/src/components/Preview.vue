@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
-defineProps<{
+import CopyIcon from './icons/CopyIcon.vue'
+const props = defineProps<{
+  userId: string | any
   updatedLinks: {} | any
   toggledisplay: (display: 'editor' | 'preview') => void
 }>()
 const isShare = ref<boolean>(false)
-
+const isCopy = ref<boolean>(false)
+const baseUrl = import.meta.env.VITE_CLIENT_BASEURL
+const username = `${props.updatedLinks.firstname}-${props.updatedLinks.lastname}`
 function toggleActive(ele: boolean) {
   isShare.value = ele
 }
-const referralMessage = 'You can learn more about me here!!'
+let linkText = `${baseUrl}/view/${username}-${props.userId}`
+const referralMessage = `click on ${linkText} to know more about me!!`
 
 const SHARE_MENU = [
   {
@@ -34,6 +38,17 @@ const SHARE_MENU = [
     link: `https://www.facebook.com/sharer/sharer.php?quote=${referralMessage}`
   }
 ]
+
+async function copyTextToClipboard() {
+  try {
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(linkText)
+      isCopy.value=true
+    }
+  } catch (err) {
+    
+  }
+}
 </script>
 
 <template>
@@ -97,25 +112,37 @@ const SHARE_MENU = [
       </div>
     </main>
   </div>
-  <div v-if="isShare" class="mt-12 absolute bg-black/10 h-full top-0 w-full">
-
+  <div v-if="isShare" class="mt-14 absolute bg-black/10 h-full top-0 w-full">
     <div class="h-full flex justify-center items-center flex-col">
-      <div class="bg-black w-60">
+      <div class="bg-black w-72 rounded-lg">
         <a
+          target="_blank"
           :href="list.link"
-          v-for="(list) in SHARE_MENU"
+          v-for="(list, index) in SHARE_MENU"
           :key="list.name"
-          class="hover:bg-white hover:text-black text-white border-b py-4 px-6 block"
+          :class="`${
+            index === 0 && 'rounded-t-lg'
+          } border-b hover:bg-white hover:text-black text-white border-b py-5 px-6 block`"
         >
-          <div class="flex items-center gap-6">
-            <img class="w-10" :src="list.icon" :alt="list.name" />
-            <span class="w-20 text-sm text-left">{{ list.name }}</span>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-2">
+              <img class="w-10" :src="list.icon" :alt="list.name" />
+              <span class="w-20 text-sm text-left">{{ list.name }}</span>
+            </div>
 
             <div><img src="../assets/icons/icon-arrow-right.svg" class="w-4" alt="arrow" /></div>
           </div>
         </a>
+        <div
+          @click="copyTextToClipboard"
+          class="rounded-b-lg cursor-pointer hover:bg-white hover:text-black text-white py-5 px-6 items-center justify-between gap-2 flex"
+        >
+          <p class="pl-4 text-sm">Copy Url</p>
+          <span class="text-sm text-sucess" v-if="isCopy">Copied!</span>
+          <CopyIcon :class="`${isCopy?'text-sucess':'text-shite'}`" />
+        </div>
       </div>
     </div>
-    <!-- </div> -->
+
   </div>
 </template>
