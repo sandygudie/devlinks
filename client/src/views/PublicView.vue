@@ -49,7 +49,7 @@ let { matches } = window.matchMedia('(max-width: 600px)')
     <Spinner width="80px" height="80px" />
   </span>
     <div
-          v-if="!matches"
+        
           class="bg-white p-8 rounded-lg flex flex-col justify-center h-screen items-center relative"
         >
           <div class="absolute h-[430px] w-[200px] bg-white z-20">

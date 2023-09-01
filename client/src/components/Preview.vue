@@ -49,10 +49,11 @@ async function copyTextToClipboard() {
     
   }
 }
+
 </script>
 
 <template>
-  <div class="bg-white relative h-screen">
+  <div  class="bg-white relative h-screen">
     <header class="absolute top-0 w-full bg-purple-300 p-6 h-64 rounded-bl-3xl rounded-br-3xl">
       <div class="relative w-full">
         <div
@@ -112,9 +113,9 @@ async function copyTextToClipboard() {
       </div>
     </main>
   </div>
-  <div v-if="isShare" class="mt-14 absolute bg-black/10 h-full top-0 w-full">
+  <div v-if="isShare" @click="toggleActive(false)"  class="absolute z-40 bg-black/30 h-full top-0 w-full">
     <div class="h-full flex justify-center items-center flex-col">
-      <div class="bg-black w-72 rounded-lg">
+      <div class="bg-black mt-14 w-72 rounded-lg">
         <a
           target="_blank"
           :href="list.link"
