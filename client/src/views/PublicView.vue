@@ -4,7 +4,7 @@ import 'vue3-toastify/dist/index.css'
 import { ref, onMounted } from 'vue'
 import { getProfile } from '@/utilis/api/profile';
 import { useRoute } from 'vue-router'
-
+import Spinner from '../components/Spinner.vue'
 const profileLinks = ref<{} | any>({
   firstname: '',
   lastname: '',
@@ -45,6 +45,9 @@ let { matches } = window.matchMedia('(max-width: 600px)')
 </script>
 
 <template>
+  <span v-if="isLoading">
+    <Spinner width="80px" height="80px" />
+  </span>
     <div
           v-if="!matches"
           class="bg-white p-8 rounded-lg flex flex-col justify-center h-screen items-center relative"
