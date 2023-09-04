@@ -23,7 +23,7 @@ const login = () => {
       if (result.success) {
         setToken(result.accessToken)
         setUserID(result.userID)
-        return window.location.replace('/')
+       return window.location.replace('/')
       }
     } catch (err: any) {
       console.log(err)
@@ -31,7 +31,9 @@ const login = () => {
         position: toast.POSITION.TOP_CENTER,
         bodyClassName: '!text-red '
       })
-    } 
+    } finally {
+      isLoading.value = false
+    }
   })
 }
 </script>
@@ -40,7 +42,7 @@ const login = () => {
   <span v-if="isLoading">
     <Spinner width="80px" height="80px" />
   </span>
-  <div v-else class="flex items-center justify-center h-screen gap-12 flex-col">
+  <div  v-else class="flex items-center justify-center h-screen gap-12 flex-col">
     <img src="@/assets/icons/logo-devlinks-small.svg" alt="devlink logo" width="100" height="100" />
     <button
       @click="login"
