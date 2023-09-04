@@ -29,7 +29,11 @@ const isDisplay = ref<'editor' | 'preview'>('editor')
 let { matches } = window.matchMedia('(max-width: 600px)')
 
 onMounted(async () => {
-  userId = getUserId()
+  let existingUserId = getUserId()
+  if (!existingUserId) {
+    return router.push('/login')
+  }
+  userId= existingUserId
   isLoading.value = true
   try {
     const profileResponse = await getProfile(userId)
@@ -251,4 +255,3 @@ const handleLinkChange = (event: any, index: number) => {
   write documentation
   include link sharing to differnt media platform
 drag and drop -->
-
