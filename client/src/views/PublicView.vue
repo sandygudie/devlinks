@@ -38,7 +38,6 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
-// let { matches } = window.matchMedia('(max-width: 600px)')
 </script>
 
 <template>
