@@ -12,12 +12,10 @@ const googleLogin = async function (req, res) {
     url: "https://www.googleapis.com/oauth2/v3/userinfo",
   });
   const user = userinfo.data;
-// console.log(user)
   try {
     connection.query(
       `SELECT * FROM accounts WHERE googleID = '${user.sub}'`,
       async function (err, userDetails) {
-        // if (err) return res.status(401).json({ error: "User does not exist" });
         if (!userDetails?.length) {
           connection.query(
             `INSERT INTO accounts
