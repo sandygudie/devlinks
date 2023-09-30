@@ -19,6 +19,7 @@ jobs:
         run: |
           ls -la
           cd client
+          ls -la
       - name: Install dependencies
         run: |
           npm install
