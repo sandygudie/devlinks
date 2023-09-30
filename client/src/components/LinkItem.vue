@@ -2,7 +2,7 @@
 import AddLink from './AddLink.vue'
 defineProps<{
   propitems: {
-    errorList:number[]
+    errorList: number[]
     devLinks: [] | any
     addnewLink: () => void
     removeList: (index: number) => void
@@ -10,7 +10,6 @@ defineProps<{
     handleLinkChange: (e: any, index: number) => void
   }
 }>()
-
 </script>
 
 <template>
@@ -21,7 +20,8 @@ defineProps<{
         Add/edit/remove links below and then share all your profiles with the world
       </p>
     </div>
-    <button type="button"
+    <button
+      type="button"
       @click="propitems.addnewLink"
       :disabled="propitems.devLinks.length >= 5"
       :class="`${
@@ -38,7 +38,7 @@ defineProps<{
         v-for="(list, index) in propitems.devLinks"
         :key="list.id"
         v-bind:propitems="{
-             errorList:propitems.errorList,
+          errorList: propitems.errorList,
           removeList: propitems.removeList,
           id: list.id,
           index: index,

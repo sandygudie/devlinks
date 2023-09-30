@@ -1,8 +1,7 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 
-import { TOKEN_KEY,USERID } from '../constants'
+import { TOKEN_KEY, USERID } from '../constants'
 const baseURL = import.meta.env.VITE_API_BASEURL
-
 
 let token
 if (typeof window !== 'undefined') {
@@ -24,7 +23,6 @@ async function makeApiCall<T = any>(
       throw new Error('BASEURL is not defined')
     }
     const { data } = await axios({
-
       url,
       method,
       data: payload,

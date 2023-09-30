@@ -3,8 +3,7 @@ defineProps<{
   handleFirstNameChange: (e: any) => void
   handleLastNameChange: (e: any) => void
   uploadProfileImage: (e: any) => void
-  profileLinks:{}|any
-
+  profileLinks: {} | any
 }>()
 </script>
 
@@ -20,14 +19,12 @@ defineProps<{
       <p class="text-sm text-gray-200">Profile picture</p>
       <div class="w-8/12 flex gap-5 items-center">
         <div class="rounded-lg text-xs relative">
-          
           <img
-            
             :src="profileLinks.profilepic"
             class="lg:w-48 lg:h-48 rounded-full"
             alt="profile-upload"
           />
-         
+
           <div class="absolute top-0 w-full rounded-full bg-black/30 h-full">
             <label
               class="text-white flex h-full flex-col justify-center items-center"
@@ -63,7 +60,7 @@ defineProps<{
           type="text"
           class="focus:outline-purple-300 rounded-lg px-4 py-3 w-8/12"
         />
-      </div> 
+      </div>
       <div class="flex justify-between items-center my-4">
         <label class="text-sm">Last name <sup class="text-xs">*</sup></label>
         <input
@@ -71,12 +68,17 @@ defineProps<{
           required
           :value="profileLinks.lastname"
           type="text"
-          class="focus:outline-purple-300  rounded-lg px-4 py-3 w-8/12"
+          class="focus:outline-purple-300 rounded-lg px-4 py-3 w-8/12"
         />
       </div>
       <div class="flex justify-between items-center">
         <label class="text-sm">Email</label>
-        <input type="text" :value="profileLinks.email" readonly class="focus:outline-0 opacity-60 rounded-lg px-4 py-3 w-8/12" />
+        <input
+          type="text"
+          :value="profileLinks.email"
+          readonly
+          class="focus:outline-0 opacity-60 rounded-lg px-4 py-3 w-8/12"
+        />
       </div>
     </div>
   </div>

@@ -10,8 +10,8 @@ const router = createRouter({
       name: 'login',
       component: LoginView
     },
-    { path: '/view/:id', component: PublicView},
-    
+    { path: '/view/:id', component: PublicView },
+
     {
       path: '/',
       name: 'home',

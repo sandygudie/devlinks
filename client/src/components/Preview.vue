@@ -43,17 +43,16 @@ async function copyTextToClipboard() {
   try {
     if (navigator?.clipboard?.writeText) {
       await navigator.clipboard.writeText(linkText)
-      isCopy.value=true
+      isCopy.value = true
     }
   } catch (err) {
-    
+    return err
   }
 }
-
 </script>
 
 <template>
-  <div  class="bg-white relative h-screen">
+  <div class="bg-white relative h-screen">
     <header class="absolute top-0 w-full bg-purple-300 p-6 h-64 rounded-bl-3xl rounded-br-3xl">
       <div class="relative w-full">
         <div
@@ -113,7 +112,11 @@ async function copyTextToClipboard() {
       </div>
     </main>
   </div>
-  <div v-if="isShare" @click="toggleActive(false)"  class="absolute z-40 bg-black/30 h-full top-0 w-full">
+  <div
+    v-if="isShare"
+    @click="toggleActive(false)"
+    class="absolute z-40 bg-black/30 h-full top-0 w-full"
+  >
     <div class="h-full flex justify-center items-center flex-col">
       <div class="bg-black mt-14 w-72 rounded-lg">
         <a
@@ -140,10 +143,9 @@ async function copyTextToClipboard() {
         >
           <p class="pl-4 text-sm">Copy Url</p>
           <span class="text-sm text-sucess" v-if="isCopy">Copied!</span>
-          <CopyIcon :class="`${isCopy?'text-sucess':'text-shite'}`" />
+          <CopyIcon :class="`${isCopy ? 'text-sucess' : 'text-shite'}`" />
         </div>
       </div>
     </div>
-
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { googleTokenLogin } from 'vue3-google-login'
 import { googleLogin } from '@/utilis/api/auth'
-import router from '@/router'
+// import router from '@/router'
 import { ref, onMounted } from 'vue'
 import Spinner from '../components/Spinner.vue'
 import { toast } from 'vue3-toastify'
@@ -31,7 +31,7 @@ const login = () => {
         position: toast.POSITION.TOP_CENTER,
         bodyClassName: '!text-red '
       })
-    } 
+    }
   })
 }
 </script>

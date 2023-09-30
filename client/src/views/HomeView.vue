@@ -2,7 +2,7 @@
 import router from '@/router'
 import { ref, onMounted } from 'vue'
 import Header from '../components/Header.vue'
-import Links from '../components/Links.vue'
+import Links from '../components/LinkItem.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
@@ -10,14 +10,31 @@ import { getProfile, updateProfile } from '@/utilis/api/profile'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getUserId, removeDuplicates } from '@/utilis'
-const profileLinks = ref<{} | any>({
+
+interface ProfileLinks {
+  firstname: string
+  lastname: string
+  profilepic: string
+  devlinks: [{ id: number; name: string; link: string; color: string }]
+  email: string
+}
+
+const profileLinks = ref<ProfileLinks>({
   firstname: '',
   lastname: '',
   profilepic: '',
-  devlinks: [],
+  devlinks: [
+    {
+      id: 0,
+      name: '',
+      link: '',
+      color: ''
+    }
+  ],
   email: ''
 })
-let updatedLinks = <{} | any>{}
+
+let updatedLinks: { firstname: string; lastname: string; profilepic: any; devlinks: any }
 let errorList = ref<number[]>([])
 const isLoading = ref<boolean>(false)
 let userId: string | any
@@ -33,7 +50,7 @@ onMounted(async () => {
   if (!existingUserId) {
     return router.push('/login')
   }
-  userId= existingUserId
+  userId = existingUserId
   isLoading.value = true
   try {
     const profileResponse = await getProfile(userId)
@@ -128,13 +145,13 @@ const handleSubmit = async () => {
   }
 }
 const handlePlatformChange = (value: any, index: number) => {
-  const result = profileLinks.value.devlinks.find((item: { id: number }) => item.id === index)
+  const result = profileLinks.value.devlinks.find((item: { id: number }) => item.id === index)!
   result.name = value.label
   result.color = value.color
 }
 
 const handleLinkChange = (event: any, index: number) => {
-  const result = profileLinks.value.devlinks.find((item: { id: number }) => item.id === index)
+  const result = profileLinks.value.devlinks.find((item: { id: number }) => item.id === index)!
   result.link = event.target.value
 }
 </script>
