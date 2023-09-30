@@ -36,7 +36,7 @@ const profileLinks = ref<ProfileLinks>({
 
 let updatedLinks: { firstname: string; lastname: string; profilepic: any; devlinks: any }
 let errorList = ref<number[]>([])
-const isLoading = ref<boolean>(true)
+const isLoading = ref<boolean>(false)
 let userId: string | any
 const selected: number = 5
 let previewImage = ref('')
@@ -46,12 +46,13 @@ const isDisplay = ref<'editor' | 'preview'>('editor')
 let { matches } = window.matchMedia('(max-width: 600px)')
 
 onMounted(async () => {
+  isLoading.value = true
   let existingUserId = getUserId()
   if (!existingUserId) {
     return router.push('/login')
   }
   userId = existingUserId
-  isLoading.value = true
+
   try {
     const profileResponse = await getProfile(userId)
     if (profileResponse.success) {
