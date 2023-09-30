@@ -6,8 +6,8 @@ const connection = mysql.createConnection({
   user: DB_USER,
   password: DB_PASSWORD,
   database: DB_NAME,
-  keepAliveInitialDelay: 10000, // 0 by default.
-  enableKeepAlive: true, // false by default.
+  keepAliveInitialDelay: 10000, 
+  enableKeepAlive: true, 
 });
 
 // Verify that the database is connected successfully

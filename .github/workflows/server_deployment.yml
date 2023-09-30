@@ -4,8 +4,12 @@ on:
     branches:
       - main
     paths:
-      - 'server/**'
-  
+      - "server/**"
+
+defaults:
+  run:
+    working-directory: ./server
+
 jobs:
   deploy:
     name: Deploy app
