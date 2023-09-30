@@ -46,13 +46,12 @@ const isDisplay = ref<'editor' | 'preview'>('editor')
 let { matches } = window.matchMedia('(max-width: 600px)')
 
 onMounted(async () => {
-  isLoading.value = true
   let existingUserId = getUserId()
   if (!existingUserId) {
     return router.push('/login')
   }
   userId = existingUserId
-
+  isLoading.value = true
   try {
     const profileResponse = await getProfile(userId)
     if (profileResponse.success) {
