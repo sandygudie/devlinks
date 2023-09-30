@@ -1,15 +1,20 @@
 # DevLinks
-Manage and share your social links all in one place.
-https://devlinks-client.onrender.com
+Devlink is a social link management platform , it collects all your social links in one place. it makes sharing links easy.
+
+- [View App](https://devlinks-murex.vercel.app/)
 
 <br>
 
 ### Technologies
-Client - Vue, Typescript, Axios, GoogleLogin
+Devlink is a **Mono-respository** using the technologies below for development.
 
-Server - MySql, NodeJs, Express
+ - Client - [Vue](https://vuejs.org/), [Typescript](https://www.typescriptlang.org/), [Axios](https://axios-http.com/), [GoogleLogin](https://cloud.google.com/nodejs/getting-started/authenticate-users), [Vercel](https://vercel.com/)
 
-Deployment - Render
+ - Server - [MySql](https://www.mysql.com/), [NodeJs](https://nodejs.org/en), [Express](https://expressjs.com/), [Fly.io](https://fly.io/)
+   
+ - CI/CD - [Github actions ](https://docs.github.com/en/actions)
+
+
 
 <br>
 
