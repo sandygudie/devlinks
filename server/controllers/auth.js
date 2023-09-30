@@ -3,7 +3,7 @@ const client = new OAuth2Client("YOUR_GOOGLE_CLIENT_ID");
 const connection = require("../db/db");
 const { generateToken } = require("../middlewares/token");
 
-// Call this function to validate the JWT credential sent from client-side
+
 const googleLogin = async function (req, res) {
   const { token } = req.body;
 

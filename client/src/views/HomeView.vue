@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import router from '@/router'
 import { ref, onMounted } from 'vue'
+import 'vue3-toastify/dist/index.css'
+import { toast } from 'vue3-toastify'
 import Header from '../components/Header.vue'
 import Links from '../components/LinkItem.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
-import { toast } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
 import { getUserId, removeDuplicates } from '@/utilis'
 
 interface ProfileLinks {
