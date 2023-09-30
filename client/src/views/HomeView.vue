@@ -114,12 +114,7 @@ const handleSubmit = async () => {
   )
   errorList.value = removeDuplicates(errorList.value)
 
-  if (errorList.value.length) {
-    toast.error('Missing parameter for links', {
-      position: toast.POSITION.TOP_CENTER,
-      bodyClassName: '!text-red '
-    })
-  } else {
+  if (!errorList.value.length) {
     updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
     let userDetails = {
       name: updatedLinks.firstname + ' ' + updatedLinks.lastname,
@@ -151,6 +146,9 @@ const handlePlatformChange = (value: any, index: number) => {
 }
 
 const handleLinkChange = (event: any, index: number) => {
+  errorList.value.includes(index) && event.target.value !== ' '
+    ? errorList.value.splice(index)
+    : null
   const result = profileLinks.value.devlinks.find((item: { id: number }) => item.id === index)!
   result.link = event.target.value
 }
@@ -249,7 +247,7 @@ const handleLinkChange = (event: any, index: number) => {
                 :disabled="profileLinks.devlinks.length <= 0"
                 :class="`${
                   profileLinks.devlinks.length > 0 ? 'bg-purple-300' : 'bg-purple-300/20'
-                }  px-4 py-2 text-sm text-bold text-white rounded-lg`"
+                }  px-4 py-2 text-sm text-bold cursor-pointer text-white rounded-lg`"
               />
             </div>
           </div>
@@ -266,7 +264,6 @@ const handleLinkChange = (event: any, index: number) => {
 </template>
 
 <!-- todo 
-
   dark mode
   set up eslint
   write documentation
