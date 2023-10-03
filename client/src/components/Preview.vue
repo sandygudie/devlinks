@@ -114,7 +114,7 @@ async function copyTextToClipboard() {
   </div>
   <div
     v-if="isShare"
-    @click="toggleActive(false)"
+
     class="absolute z-40 bg-black/30 h-full top-0 w-full"
   >
     <div class="h-full flex justify-center items-center flex-col">
