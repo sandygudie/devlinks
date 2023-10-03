@@ -36,7 +36,7 @@ const profileLinks = ref<ProfileLinks>({
 
 let updatedLinks: { firstname: string; lastname: string; profilepic: any; devlinks: any }
 let errorList = ref<number[]>([])
-const isLoading = ref<boolean>(false)
+const isLoading = ref<boolean>(true)
 let userId: string | any
 const selected: number = 5
 let previewImage = ref('')
