@@ -19,22 +19,22 @@ const referralMessage = `click on ${linkText} to know more about me!!`
 const SHARE_MENU = [
   {
     name: 'Email',
-    icon: '../assets/icons/emailIcon.svg',
+    icon: '../assets/icons/emailicon.webp',
     link: `mailto:?subject=Assetbase%20Referral&body=${referralMessage}`
   },
   {
     name: 'Whatsapp',
-    icon: '../assets/icons/whatsappIcon.svg',
+    icon: '../assets/icons/whatsappIcon.webp',
     link: `https://api.whatsapp.com/send?text=${referralMessage}`
   },
   {
     name: 'Twitter',
-    icon: '../assets/icons/twitterIcon.svg',
+    icon: '../assets/icons/twitterIcon.webp',
     link: `https://twitter.com/intent/tweet?text=${referralMessage}`
   },
   {
     name: 'Facebook',
-    icon: '../assets/icons/facebookIcon.svg',
+    icon: '../assets/icons/facebookIcon.webp',
     link: `https://www.facebook.com/sharer/sharer.php?quote=${referralMessage}`
   }
 ]
