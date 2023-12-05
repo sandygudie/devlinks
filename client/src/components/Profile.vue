@@ -27,7 +27,7 @@ defineProps<{
 
           <div class="absolute top-0 w-full rounded-full bg-black/30 h-full">
             <label
-              class="text-white flex h-full flex-col justify-center items-center"
+              class="text-white cursor-pointer flex h-full flex-col justify-center items-center"
               for="file_input"
             >
               <img src="../assets/icons/icon-upload-image.svg" class="w-8" alt="icon-upload" />
