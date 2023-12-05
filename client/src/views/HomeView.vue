@@ -65,7 +65,7 @@ onMounted(async () => {
     }
   } catch (err: any) {
     toast.error(err.toString(), {
-      position: toast.POSITION.TOP_CENTER,
+      position: toast.POSITION.TOP_RIGHT,
       onClose: () => router.push('/login'),
       bodyClassName: '!text-red '
     })
@@ -128,12 +128,12 @@ const handleSubmit = async () => {
         toast.success('Updated!', {
           autoClose: 1000,
           theme: 'auto',
-          position: toast.POSITION.BOTTOM_CENTER
+          position: toast.POSITION.TOP_RIGHT
         })
       }
     } catch (err: any) {
       toast.error(err.toString(), {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
         onClose: () => router.push('/login'),
         bodyClassName: '!text-red '
       })

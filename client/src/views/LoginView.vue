@@ -27,7 +27,7 @@ const login = () => {
     } catch (err: any) {
       console.log(err)
       toast.error(err.toString(), {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
         bodyClassName: '!text-red '
       })
     }
