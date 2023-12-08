@@ -15,7 +15,6 @@ Devlink is a **Mono-respository** using the technologies below for development.
  - CI/CD - [Github actions ](https://docs.github.com/en/actions)
 
 
-
 <br>
 
 ### Preview
