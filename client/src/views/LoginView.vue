@@ -38,9 +38,9 @@ const login = () => {
   <span v-if="isLoading">
     <Spinner width="80px" height="80px" />
   </span>
-  <div v-else class="md:flex block overflow-hidden relative items-center justify-between">
+  <div v-else class="md:flex block fixed w-full overflow-hidden items-center justify-between">
     <div
-      class="text-center h-screen  flex items-center justify-center flex-col relative text-white text-center px-5 pt-4 md:p-10 bg-[#2839a3] md:w-[75%]">
+      class="text-center h-screen flex items-center justify-center flex-col relative text-white text-center px-5 pt-4 md:p-10 bg-[#2839a3] md:w-[75%]">
       <img className="w-10 block absolute top-5 left-5 md:hidden" src="@/assets/icons/logo-devlinks-small.svg"
         alt="devlink logo" width="100" height="100" />
       <div class="flex flex-col items-center md:justify-center md:h-full mt-4 md:mt-0">
