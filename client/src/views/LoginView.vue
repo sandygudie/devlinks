@@ -42,12 +42,12 @@ const login = () => {
     <div
       class="text-center h-screen  flex items-center justify-center flex-col relative text-white text-center px-5 pt-4 md:p-10 bg-[#2839a3] md:w-[75%]">
       <img className="w-10 block absolute top-5 left-5 md:hidden" src="@/assets/icons/logo-devlinks-small.svg"
-        alt="devlink logo" loading="eager" width="100" height="100" />
+        alt="devlink logo" width="100" height="100" />
       <div class="flex flex-col items-center md:justify-center md:h-full mt-4 md:mt-0">
         <h1 class="text-4xl md:text-6xl font-bold">Stay Connected</h1>
         <p class="text-xl mt-2">Manage your social links in one place.</p>
         <img className="w-[30rem] mx-auto mt-8" src="@/assets/images/social-media-collection.svg" alt="devlink logo"
-          loading="eager" width="100" height="100" />
+          width="100" height="100" />
       </div>
       <div class="flex mt-12 flex-col md:hidden items-center justify-center">
         <p class="text-xl mb-3">Log in to your account.</p>
@@ -61,7 +61,7 @@ const login = () => {
     </div>
     <div class="w-1/2 mx-auto hidden md:block h-screen">
       <img className="w-36 absolute top-10 right-10" src="@/assets/icons/logo-devlinks-large.svg" alt="devlink logo"
-        loading="eager" width="100" height="100" />
+        width="100" height="100" />
       <div class="flex relative flex-col items-center h-full justify-center">
         <p class="text-xl mb-6">Log in to your account.</p>
         <button @click="login"
