@@ -59,13 +59,11 @@ const login = () => {
         </button>
       </div>
     </div>
-
     <div class="w-1/2 mx-auto hidden md:block h-screen">
       <img className="w-36 absolute top-10 right-10" src="@/assets/icons/logo-devlinks-large.svg" alt="devlink logo"
         loading="eager" width="100" height="100" />
       <div class="flex relative flex-col items-center h-full justify-center">
         <p class="text-xl mb-6">Log in to your account.</p>
-
         <button @click="login"
           class="bg-white text-sm shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:shadow-[0_3px_10px_rgb(0,0,0,0.40)] font-extraBold flex justify-between gap-x-8 items-center rounded-xl pl-4 pr-10 py-2">
           <img src="@/assets/icons/google_icon.webp" alt="devlink logo" width="40" height="40" />
