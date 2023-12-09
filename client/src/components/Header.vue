@@ -12,22 +12,26 @@ defineProps<{
 let { matches } = window.matchMedia('(max-width: 600px)')
 </script>
 <template>
-  <header className="rounded-lg p-3 bg-white flex text-gray-200 justify-between items-center">
+  <header className="rounded-lg p-3 bg-white flex text-gray-200 h-16 justify-between items-center">
+   <div>
     <img
       v-if="matches"
       src="@/assets/icons/logo-devlinks-small.svg"
       alt="devlink logo"
       width="25"
       height="25"
+      loading="eager"
     />
 
     <img
       v-else
-      src="@/assets/icons/logo-devlinks-large.svg"
+      src="../../public/assets/logo-devlinks-large.svg"
       alt="devlink logo"
       width="125"
       height="125"
+      loading="eager"
     />
+   </div>
     <div className="flex gap-2">
       <button
         :class="[isActive === 'links' ? 'active' : 'hover:text-purple-300']"
