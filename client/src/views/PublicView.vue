@@ -62,7 +62,8 @@ onMounted(async () => {
       </div>
       <div class="py-1 px-1 my-2">
         <template v-for="item in profileLinks.devlinks" :key="item.id">
-          <div
+          <a :href="item.link"
+          target="_blank"
             v-if="item.name"
             class="text-sm px-4 flex no-underline justify-between px-1.5 my-4 bg-gray-400 text-white text-sm h-8 rounded-lg"
             :style="{ backgroundColor: item.color }"
@@ -75,7 +76,7 @@ onMounted(async () => {
               {{ item.name }}
             </span>
             <img src="../assets/icons/icon-arrow-right.svg" class="w-4" alt="arrow" />
-          </div>
+          </a>
         </template>
       </div>
     </div>
