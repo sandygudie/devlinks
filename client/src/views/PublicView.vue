@@ -26,7 +26,7 @@ onMounted(async () => {
       profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
       profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]
       profileLinks.value.email = profileResponse.data[0].email
-      profileLinks.value.devlinks = profileResponse.data[0].links || []
+      profileLinks.value.devlinks = JSON.parse(profileResponse.data[0].links) || []
       profileLinks.value.profilepic = profileResponse.data[0].profilepic
     }
   } catch (err: any) {
