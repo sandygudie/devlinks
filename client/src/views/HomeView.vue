@@ -43,7 +43,7 @@ const selected: number = 5
 let previewImage = ref('')
 const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
-
+let shareId = ref<string>('')
 onMounted(async () => {
   isLoading.value = true
   let existingUserId = getUserId()
@@ -62,6 +62,7 @@ onMounted(async () => {
       profileLinks.value.devlinks = JSON.parse(profileResponse.data[0].links) || []
       profileLinks.value.profilepic = profileResponse.data[0].profilepic
       updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
+      shareId.value = profileResponse.data[0].shareId
     }
 
     isLoading.value = false
@@ -244,7 +245,7 @@ const handleLinkChange = (event: any, index: number) => {
       </main>
     </div>
     <Preview
-      :userId="userId"
+    :shareId="shareId"
       :toggledisplay="toggledisplay"
       :updatedLinks="updatedLinks"
       v-else-if="isDisplay === 'preview'"

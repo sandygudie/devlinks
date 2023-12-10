@@ -2,7 +2,7 @@
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { ref, onMounted } from 'vue'
-import { getProfile } from '@/utilis/api/profile'
+import { getPublicDetails } from '@/utilis/api/profile'
 import { useRoute } from 'vue-router'
 import Spinner from '../components/Spinner.vue'
 const profileLinks = ref<{} | any>({
@@ -17,11 +17,9 @@ const route = useRoute()
 
 onMounted(async () => {
   let id: any = route.params.id
-  let userId = id.slice(15)
-
   isLoading.value = true
   try {
-    const profileResponse = await getProfile(userId)
+    const profileResponse = await getPublicDetails(id)
     if (profileResponse.success) {
       profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
       profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]
@@ -62,8 +60,9 @@ onMounted(async () => {
       </div>
       <div class="py-1 px-1 my-2">
         <template v-for="item in profileLinks.devlinks" :key="item.id">
-          <a :href="item.link"
-          target="_blank"
+          <a
+            :href="item.link"
+            target="_blank"
             v-if="item.name"
             class="text-sm px-4 flex no-underline justify-between px-1.5 my-4 bg-gray-400 text-white text-sm h-8 rounded-lg"
             :style="{ backgroundColor: item.color }"

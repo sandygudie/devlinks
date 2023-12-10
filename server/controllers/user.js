@@ -22,6 +22,28 @@ const getUser = async function (req, res) {
     return res.status(401).json(err);
   }
 };
+const getUserByShareId = async function (req, res) {
+  try {
+    const { shareId } = req.query;
+    if (!shareId) {
+      return res.status(401).json("Invalid Request");
+    }
+    connection.query(
+      `SELECT * FROM accounts WHERE shareId = '${shareId}'`,
+      function (err, data) {
+        if (err) return res.status(401).json({ error: "Invalid request" });
+        if (data.length) {
+          return res
+            .status(200)
+            .json({ success: true, message: "User retrieved", data: data });
+        }
+        return res.status(401).json({ error: "User not found" });
+      }
+    );
+  } catch (err) {
+    return res.status(401).json(err);
+  }
+};
 
 const updateUser = async function (req, res) {
   try {
@@ -69,4 +91,4 @@ const updateUser = async function (req, res) {
   }
 };
 
-module.exports = { getUser, updateUser };
+module.exports = { getUser, updateUser,getUserByShareId };

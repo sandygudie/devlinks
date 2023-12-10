@@ -2,6 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client("YOUR_GOOGLE_CLIENT_ID");
 const pool = require("../db/db");
 const { generateToken } = require("../middlewares/token");
+const { v4: uuidv4 } = require("uuid");
 
 const googleLogin = async function (req, res) {
   const { token } = req.body;
@@ -11,17 +12,20 @@ const googleLogin = async function (req, res) {
     url: "https://www.googleapis.com/oauth2/v3/userinfo",
   });
   const user = userinfo.data;
+
   try {
     pool.getConnection(function (err, connection) {
       connection.query(
         `SELECT * FROM accounts WHERE googleID = '${user.sub}'`,
         async function (err, userDetails) {
           if (!userDetails?.length) {
+            const shareId = uuidv4();
             connection.query(
               `INSERT INTO accounts
-          (googleID,name,email,profilepic) 
+          (googleID,name,email,profilepic,shareId) 
           VALUES 
-          ('${user.sub}','${user.name}','${user.email}','${user.picture}')`,
+        
+          ('${user.sub}','${user.name}','${user.email}','${user.picture}','${shareId}')`,
               async (err, data) => {
                 if (err) return res.status(400).json({ error: err });
               }
@@ -46,7 +50,7 @@ const googleLogin = async function (req, res) {
       );
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(400).json({ error: error });
   }
 };

@@ -9,7 +9,7 @@ import WhatsappIcon from '@/assets/icons/WhatsappIcon.svg'
 import { XCircleIcon } from '@heroicons/vue/20/solid'
 
 const props = defineProps<{
-  userId: string | any
+  shareId: string
   updatedLinks: {} | any
   toggledisplay: (display: 'editor' | 'preview') => void
 }>()
@@ -20,7 +20,7 @@ const username = `${props.updatedLinks.firstname}-${props.updatedLinks.lastname}
 function toggleActive(ele: boolean) {
   isShare.value = ele
 }
-let linkText = `${baseUrl}/view/${username}-${props.userId}`
+let linkText = `${baseUrl}/view/${username}/${props.shareId}`
 const referralMessage = `click on ${linkText} to know more about me!!`
 
 const SHARE_MENU = [
