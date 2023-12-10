@@ -4,6 +4,7 @@ import 'vue3-toastify/dist/index.css'
 import { ref, onMounted } from 'vue'
 import { getPublicDetails } from '@/utilis/api/profile'
 import { useRoute } from 'vue-router'
+import ArrowIcon from '../components/icons/ArrowIcon.vue'
 import Spinner from '../components/Spinner.vue'
 const profileLinks = ref<{} | any>({
   firstname: '',
@@ -64,7 +65,7 @@ onMounted(async () => {
             :href="item.link"
             target="_blank"
             v-if="item.name"
-            class="text-sm px-4 flex no-underline justify-between px-1.5 my-4 bg-gray-400 text-white text-sm h-8 rounded-lg"
+            class="text-sm px-4 flex no-underline justify-between flex items-center justif-between px-1.5 my-4 bg-gray-400 text-white text-sm h-8 rounded-lg"
             :style="{ backgroundColor: item.color }"
           >
             <span class="flex items-center gap-3">
@@ -74,7 +75,7 @@ onMounted(async () => {
               />
               {{ item.name }}
             </span>
-            <img src="../assets/icons/icon-arrow-right.svg" class="w-4" alt="arrow" />
+            <ArrowIcon class="text-sm fill-white" />
           </a>
         </template>
       </div>
