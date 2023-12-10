@@ -6,7 +6,6 @@ const apiRouter = require("./routes");
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -15,7 +14,7 @@ app.get("/", (req, res) =>
 );
 app.use("/api/v1", apiRouter);
 
-middleware;
+// middleware;
 app.use(middleware.unknownEndpoint);
 app.use(middleware.defaultErrorHandler);
 

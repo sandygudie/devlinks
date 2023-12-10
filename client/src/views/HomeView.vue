@@ -8,6 +8,7 @@ import Links from '../components/LinkItem.vue'
 import Profile from '../components/Profile.vue'
 import Preview from '../components/Preview.vue'
 import Spinner from '../components/Spinner.vue'
+import ArrowIcon from '../components/icons/ArrowIcon.vue'
 import { getProfile, updateProfile } from '@/utilis/api/profile'
 import { getUserId, removeDuplicates } from '@/utilis'
 
@@ -43,8 +44,6 @@ let previewImage = ref('')
 const isActive = ref<'links' | 'profile'>('links')
 const isDisplay = ref<'editor' | 'preview'>('editor')
 
-let { matches } = window.matchMedia('(max-width: 600px)')
-
 onMounted(async () => {
   isLoading.value = true
   let existingUserId = getUserId()
@@ -55,22 +54,23 @@ onMounted(async () => {
 
   try {
     const profileResponse = await getProfile(userId)
+
     if (profileResponse.success) {
       profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
       profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]
       profileLinks.value.email = profileResponse.data[0].email
-      profileLinks.value.devlinks = profileResponse.data[0].links || []
+      profileLinks.value.devlinks = JSON.parse(profileResponse.data[0].links) || []
       profileLinks.value.profilepic = profileResponse.data[0].profilepic
       updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
     }
+
+    isLoading.value = false
   } catch (err: any) {
     toast.error(err.toString(), {
       position: toast.POSITION.TOP_RIGHT,
       onClose: () => router.push('/login'),
       bodyClassName: '!text-red '
     })
-  } finally {
-    isLoading.value = false
   }
 })
 
@@ -78,6 +78,9 @@ function toggleActive(active: 'links' | 'profile') {
   isActive.value = active
 }
 function toggledisplay(display: 'editor' | 'preview') {
+  if (display === 'editor') {
+    toggleActive('links')
+  }
   isDisplay.value = display
 }
 
@@ -158,22 +161,22 @@ const handleLinkChange = (event: any, index: number) => {
   <span v-if="isLoading">
     <Spinner width="80px" height="80px" />
   </span>
-  <div v-else class="h-full">
-    <div class="h-full p-6" v-if="isDisplay === 'editor'">
+
+  <div v-else class="h-full md:fixed w-full">
+    <div class="h-full md:p-6 bg-gray-100" v-if="isDisplay === 'editor'">
       <Header :toggledisplay="toggledisplay" :toggleActive="toggleActive" :isActive="isActive" />
-      <main class="flex justify-between h-screen gap-6 mt-6">
+      <main class="lg:flex justify-between gap-6 mt-6 h-[90vh]">
         <div
-          v-if="!matches"
-          class="bg-white w-5/12 p-8 rounded-lg flex flex-col justify-center h-full items-center relative"
+          class="bg-white w-5/12 p-8 rounded-lg hidden lg:flex flex-col justify-center h-full items-center relative"
         >
-          <div class="absolute h-[430px] w-[200px] bg-white z-20">
-            <div class="my-6 mx-auto text-center">
+          <div class="absolute h-[385px] w-[190px] bg-white z-20">
+            <div class="mx-auto text-center">
               <img
                 :src="profileLinks.profilepic || previewImage"
                 class="w-20 mx-auto h-20 rounded-full border border-gray-400"
                 alt="profile-upload"
               />
-              <!-- <div v-else class="bg-gray-400 rounded-full w-20 mx-auto h-20"></div> -->
+
               <p :class="`mt-2 font-bold rounded-lg`">
                 {{ profileLinks.firstname + ' ' + profileLinks.lastname }}
               </p>
@@ -181,11 +184,11 @@ const handleLinkChange = (event: any, index: number) => {
                 {{ profileLinks.email }}
               </p>
             </div>
-            <div class="py-1 px-1 my-2">
+            <div class="py-1 px-1 my-2 absolute w-full">
               <template v-for="item in profileLinks.devlinks" :key="item.id">
                 <div
                   v-if="item.name"
-                  class="text-sm px-4 flex no-underline justify-between px-1.5 my-4 bg-gray-400 text-white text-sm h-8 rounded-lg"
+                  class="text-sm px-4 flex no-underline justify-between items-center px-1.5 my-2 bg-gray-400 text-white text-sm h-9 rounded-lg"
                   :style="{ backgroundColor: item.color }"
                 >
                   <span class="flex items-center gap-3">
@@ -193,32 +196,31 @@ const handleLinkChange = (event: any, index: number) => {
                       class="w-3"
                       :src="`/assets/icons/icon-link-boxes/icon-${item.name.toLowerCase()}-link-box.svg`"
                     />
-                    {{ item.name }}
+
+                    <p class="text-sm">{{ item.name }}</p>
                   </span>
-                  <img src="../assets/icons/icon-arrow-right.svg" class="w-4" alt="arrow" />
+                  <span><ArrowIcon class="text-sm fill-white" /></span>
                 </div>
               </template>
 
               <div
-                class="h-8 px-2 my-3 bg-gray-400 rounded-lg"
+                class="h-9 px-2 my-2 bg-gray-400 rounded-lg"
                 v-for="n in selected - profileLinks.devlinks.length"
                 :key="n"
               ></div>
             </div>
           </div>
           <img
-            class="mx-auto"
+            class="mx-auto h-[28rem]"
             src="@/assets/images/illustration-phone-mockup.svg"
             width="250"
-            height="180"
+            height="100"
             alt="phone view"
           />
         </div>
         <form
           @submit.prevent="handleSubmit"
-          :class="`${
-            matches ? 'w-full' : 'w-7/12'
-          } relative bg-white rounded-lg px-6 pt-6 pb-14 overflow-y-scroll`"
+          class="w-full lg:w-7/12 relative bg-white rounded-lg px-4 md:px-6 pt-6 pb-24 overflow-y-scroll"
         >
           <Links
             v-if="isActive === 'links'"
@@ -238,20 +240,6 @@ const handleLinkChange = (event: any, index: number) => {
             :handleLastNameChange="handleLastNameChange"
             :uploadProfileImage="uploadProfileImage"
           />
-
-          <div class="mt-8 bg-white">
-            <hr class="w-full border-gray-400" />
-            <div class="text-right my-4 mx-6">
-              <input
-                value="Save"
-                type="submit"
-                :disabled="profileLinks.devlinks.length <= 0"
-                :class="`${
-                  profileLinks.devlinks.length > 0 ? 'bg-purple-300' : 'bg-purple-300/20'
-                }  px-4 py-2 text-sm text-bold cursor-pointer text-white rounded-lg`"
-              />
-            </div>
-          </div>
         </form>
       </main>
     </div>
@@ -263,10 +251,3 @@ const handleLinkChange = (event: any, index: number) => {
     />
   </div>
 </template>
-
-<!-- todo 
-  dark mode
-  set up eslint
-  write documentation
-  include link sharing to differnt media platform
-drag and drop -->

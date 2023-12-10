@@ -7,13 +7,14 @@ import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { setToken, setUserID } from '@/utilis'
 import { TOKEN_KEY, USERID } from '@/utilis/constants'
+import router from '@/router'
 
 const isLoading = ref<boolean>(false)
-
 onMounted(async () => {
   localStorage.removeItem(TOKEN_KEY)
   localStorage.removeItem(USERID)
 })
+
 const login = () => {
   googleTokenLogin().then(async (response: any) => {
     try {
@@ -23,12 +24,15 @@ const login = () => {
         setToken(result.accessToken)
         setUserID(result.userID)
         return window.location.replace('/')
+
+        // router.push('/')
       }
     } catch (err: any) {
       toast.error(err.toString(), {
         position: toast.POSITION.TOP_RIGHT,
         bodyClassName: '!text-red '
       })
+      isLoading.value = false
     }
   })
 }

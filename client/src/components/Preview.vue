@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import CopyIcon from './icons/CopyIcon.vue'
+import ArrowIcon from './icons/ArrowIcon.vue'
+import EmailIcon from './icons/EmailIcon.svg'
+import FacebookIcon from './icons/FacebookIcon.svg'
+import TwitterIcon from './icons/TwitterIcon.svg'
+import WhatsappIcon from './icons/WhatsappIcon.svg'
+import { XCircleIcon } from '@heroicons/vue/20/solid'
+
 const props = defineProps<{
   userId: string | any
   updatedLinks: {} | any
@@ -19,22 +26,22 @@ const referralMessage = `click on ${linkText} to know more about me!!`
 const SHARE_MENU = [
   {
     name: 'Email',
-    icon: '../assets/icons/emailicon.webp',
+    icon: EmailIcon,
     link: `mailto:?subject=Assetbase%20Referral&body=${referralMessage}`
   },
   {
     name: 'Whatsapp',
-    icon: '../assets/icons/whatsappIcon.webp',
+    icon: WhatsappIcon,
     link: `https://api.whatsapp.com/send?text=${referralMessage}`
   },
   {
     name: 'Twitter',
-    icon: '../assets/icons/twitterIcon.webp',
+    icon: TwitterIcon,
     link: `https://twitter.com/intent/tweet?text=${referralMessage}`
   },
   {
     name: 'Facebook',
-    icon: '../assets/icons/facebookIcon.webp',
+    icon: FacebookIcon,
     link: `https://www.facebook.com/sharer/sharer.php?quote=${referralMessage}`
   }
 ]
@@ -53,41 +60,60 @@ async function copyTextToClipboard() {
 
 <template>
   <div class="bg-white relative h-screen">
-    <header class="absolute top-0 w-full bg-purple-300 p-6 h-64 rounded-bl-3xl rounded-br-3xl">
+    <header class="w-full bg-purple-300 p-6 h-40 rounded-bl-3xl rounded-br-3xl">
       <div class="relative w-full">
-        <div class="bg-white absolute w-full z-20 px-4 py-3 rounded-lg flex items-center justify-between">
-          <button @click="toggledisplay('editor')"
-            class="rounded-lg text-purple-300 border border-purple-300 text-sm py-3 px-4">
+        <div
+          class="bg-white absolute w-full z-20 px-4 py-3 rounded-lg flex items-center justify-between"
+        >
+          <button
+            @click="toggledisplay('editor')"
+            class="rounded-lg text-purple-300 border border-purple-300 text-sm py-3 px-4"
+          >
             Back to Editor
           </button>
-          <button @click="toggleActive(true)" class="rounded-lg text-white bg-purple-300 text-sm py-3 px-4">
+          <button
+            @click="toggleActive(true)"
+            class="rounded-lg text-white bg-purple-300 text-sm py-3 px-4"
+          >
             Share Link
           </button>
         </div>
       </div>
     </header>
-    <main class="flex pt-40 items-center flex-col h-full justify-center">
+    <main class="flex items-center flex-col justify-center">
       <div class="py-4 px-8 w-72 bg-white rounded-xl shadow-lg">
         <div class="my-2 mx-auto text-center">
-          <img v-if="updatedLinks.profilepic" :src="updatedLinks.profilepic" class="w-20 mx-auto h-20 rounded-full"
-            alt="profile-upload" />
+          <img
+            v-if="updatedLinks.profilepic"
+            :src="updatedLinks.profilepic"
+            class="w-20 mx-auto h-20 rounded-full"
+            alt="profile-upload"
+          />
           <div v-else class="bg-gray-400 rounded-full w-20 mx-auto h-20"></div>
           <p class="text-Bold text-xl mx-auto mt-4 `">
             {{ updatedLinks.firstname }} {{ updatedLinks.lastname }}
           </p>
-          <p class="mx-auto text-sm mt-1 text-sm`">
+          <p class="mx-auto text-sm text-sm`">
             {{ updatedLinks.email }}
           </p>
         </div>
-        <div class="mt-8">
-          <a :href="list.link" target="_blank" :style="{ backgroundColor: list.color }"
-            class="text-white flex justify-between rounded-lg text-sm mb-3 py-3 px-4"
-            v-for="list in updatedLinks.devlinks" :key="list.id">
+        <div class="mt-4">
+          <a
+            :href="list.link"
+            target="_blank"
+            :style="{ backgroundColor: list.color }"
+            class="text-white flex justify-between rounded-lg text-sm mb-3 py-[0.6rem] px-4"
+            v-for="list in updatedLinks.devlinks"
+            :key="list.id"
+          >
             <span class="flex items-center gap-3">
-              <img class="w-5" :src="`/assets/icons/icon-link-boxes/icon-${list.name.toLowerCase()}-link-box.svg`" />
+              <img
+                class="w-5"
+                :src="`/assets/icons/icon-link-boxes/icon-${list.name.toLowerCase()}-link-box.svg`"
+              />
               {{ list.name }}
             </span>
-            <img src="../assets/icons/icon-arrow-right.svg" class="w-4" alt="arrow" />
+            <span><ArrowIcon class="text-sm fill-white" /></span>
           </a>
         </div>
       </div>
@@ -95,20 +121,36 @@ async function copyTextToClipboard() {
   </div>
   <div v-if="isShare" class="absolute z-40 bg-black/30 h-full top-0 w-full">
     <div class="h-full flex justify-center items-center flex-col">
-      <div class="bg-black mt-14 w-72 rounded-lg">
-        <a target="_blank" :href="list.link" v-for="(list, index) in SHARE_MENU" :key="list.name" :class="`${index === 0 && 'rounded-t-lg'
-          } border-b hover:bg-white hover:text-black text-white border-b py-5 px-6 block`">
+      <div class="bg-black mt-14 w-72 rounded-lg relative">
+        <div class="flex items-center justify-between">
+          <p class="text-white px-4 pt-6 pb-2">Share on</p>
+          <button class="w-5 mr-5" @click="toggleActive(false)">
+            <XCircleIcon class="w-8 h-8 fill-white cursor-pointer" @click="toggleActive(false)" />
+          </button>
+        </div>
+
+        <a
+          target="_blank"
+          :href="list.link"
+          v-for="list in SHARE_MENU"
+          :key="list.name"
+          :class="`border-b hover:bg-white hover:text-black text-white border-b py-[0.8rem] px-4 block`"
+        >
           <div class="flex items-center justify-between">
             <div class="flex items-center justify-between gap-2">
-              <img class="w-10" :src="list.icon" :alt="list.name" />
-              <span class="w-20 text-sm text-left">{{ list.name }}</span>
+              <div class="w-8 h-6">
+                <img class="w-full h-6" :src="list.icon" :alt="list.name" />
+              </div>
+              <span class="w-20 text-[0.8rem] text-left">{{ list.name }}</span>
             </div>
 
-            <div><img src="../assets/icons/icon-arrow-right.svg" class="w-4" alt="arrow" /></div>
+            <div><ArrowIcon class="text-sm fill-white" /></div>
           </div>
         </a>
-        <div @click="copyTextToClipboard"
-          class="rounded-b-lg cursor-pointer hover:bg-white hover:text-black text-white py-5 px-6 items-center justify-between gap-2 flex">
+        <div
+          @click="copyTextToClipboard"
+          class="rounded-b-lg cursor-pointer hover:bg-white hover:text-black text-white py-[0.8rem] px-4 items-center justify-between gap-2 flex"
+        >
           <p class="pl-4 text-sm">Copy Url</p>
           <span class="text-sm text-sucess" v-if="isCopy">Copied!</span>
           <CopyIcon :class="`${isCopy ? 'text-sucess' : 'text-shite'}`" />

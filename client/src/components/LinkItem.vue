@@ -56,4 +56,18 @@ defineProps<{
       />
     </div>
   </div>
+
+  <div class="mt-8 bg-white">
+            <hr class="w-full border-gray-400" />
+            <div class="text-right my-2 mx-6">
+              <input
+                value="Save"
+                type="submit"
+                :disabled="propitems.devLinks.length <= 0 || propitems.devLinks.length >= 5"
+                :class="`${
+               propitems.devLinks.length < 5 &&  propitems.devLinks.length >0? 'bg-purple-300' : 'bg-purple-300/20'
+                }  px-4 py-2 text-sm text-bold cursor-pointer text-white rounded-lg`"
+              />
+            </div>
+          </div>
 </template>
