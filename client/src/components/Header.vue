@@ -2,6 +2,8 @@
 import LinkIcon from './icons/IconLink.vue'
 import ProfileIcon from './icons/IconProfile.vue'
 import IconPreview from './icons/IconPreview.vue'
+import LogoBigIcon from '@/components/icons/LogoFull.vue'
+import LogoSmallIcon from '@/components/icons/LogoSmall.vue'
 
 defineProps<{
   isActive: string
@@ -13,23 +15,11 @@ defineProps<{
 </script>
 <template>
   <header className="rounded-lg p-3 bg-white flex text-gray-200 h-16 justify-between items-center">
-    <div class="h-25 md:hidden">
-      <img
-        src="@/assets/icons/logo-devlinks-small.svg"
-        alt="devlink logo"
-        width="25"
-        height="25"
-        loading="eager"
-      />
+    <div class=" md:hidden">
+      <LogoSmallIcon class="text-purple-300" />
     </div>
-    <div class="hidden md:inline h-25">
-      <img
-        src="../../public/assets/logo-devlinks-large.svg"
-        alt="devlink logo"
-        width="125"
-        height="125"
-        loading="eager"
-      />
+    <div class="hidden md:inline ">
+      <LogoBigIcon  class="text-purple-300" />
     </div>
     <div className="flex gap-2">
       <button

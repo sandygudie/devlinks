@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import CopyIcon from './icons/CopyIcon.vue'
 import ArrowIcon from './icons/ArrowIcon.vue'
-import EmailIcon from './icons/EmailIcon.svg'
-import FacebookIcon from './icons/FacebookIcon.svg'
-import TwitterIcon from './icons/TwitterIcon.svg'
-import WhatsappIcon from './icons/WhatsappIcon.svg'
+import EmailIcon from '@/assets/icons/EmailIcon.svg'
+import FacebookIcon from '@/assets/icons/FacebookIcon.svg'
+import TwitterIcon from '@/assets/icons/TwitterIcon.svg'
+import WhatsappIcon from '@/assets/icons/WhatsappIcon.svg'
 import { XCircleIcon } from '@heroicons/vue/20/solid'
 
 const props = defineProps<{

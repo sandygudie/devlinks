@@ -7,7 +7,8 @@ import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { setToken, setUserID } from '@/utilis'
 import { TOKEN_KEY, USERID } from '@/utilis/constants'
-import router from '@/router'
+import LogoBigIcon from '@/components/icons/LogoFull.vue'
+import LogoSmallIcon from '@/components/icons/LogoSmall.vue'
 
 const isLoading = ref<boolean>(false)
 onMounted(async () => {
@@ -24,8 +25,6 @@ const login = () => {
         setToken(result.accessToken)
         setUserID(result.userID)
         return window.location.replace('/')
-
-        // router.push('/')
       }
     } catch (err: any) {
       toast.error(err.toString(), {
@@ -47,14 +46,7 @@ const login = () => {
       class="text-center h-screen flex items-center md:justify-center flex-col relative text-white text-center px-5 pt-4 lg:p-10 bg-[#2839a3] lg:w-[75%]"
     >
       <div class="w-10 block absolute top-5 left-5 lg:hidden h-10">
-        <img
-          className="w-full h-10"
-          src="@/assets/icons/logo-devlinks-small.svg"
-          alt="devlink logo"
-          width="100"
-          height="100"
-          loading="eager"
-        />
+        <LogoSmallIcon class="text-white" />
       </div>
 
       <div class="flex flex-col mt-16 items-center lg:justify-center lg:h-full">
@@ -63,7 +55,7 @@ const login = () => {
         <div class="h-60 md:w-[30rem] mt-6 mx-auto md:h-96">
           <img
             className="w-full  h-60 md:h-96"
-            src="../../public/assets/social-media-collection.svg"
+            src="/assets/social-media-collection.svg"
             alt="devlink logo"
             loading="eager"
           />
@@ -90,13 +82,9 @@ const login = () => {
       </div>
     </div>
     <div class="w-1/2 mx-auto hidden lg:block h-screen">
-      <div class="w-36 h-8 absolute top-8 right-10">
-        <img
-          className="w-full h-8"
-          src="../../public/assets/logo-devlinks-large.svg"
-          alt="devlink logo"
-          loading="eager"
-        />
+      <div class="w-36 h-7 absolute top-8 right-10">
+        <LogoBigIcon class="text-purple-300 "/>
+       
       </div>
       <div class="flex relative flex-col items-center h-full justify-center">
         <p class="text-xl mb-6">Log in to your account.</p>
@@ -113,7 +101,7 @@ const login = () => {
               height="40"
             />
           </div>
-          Sign in with Google
+          <p class="text-sm">Sign in with Google</p>
         </button>
       </div>
     </div>
