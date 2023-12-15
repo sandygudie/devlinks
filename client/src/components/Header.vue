@@ -11,7 +11,6 @@ defineProps<{
   toggledisplay: (display: 'editor' | 'preview') => void
 }>()
 
-
 </script>
 <template>
   <header className="rounded-lg p-3 bg-white flex text-gray-200 h-16 justify-between items-center">
