@@ -46,7 +46,7 @@ const login = () => {
     <div
       class="text-center h-screen flex items-center md:justify-center flex-col relative text-white text-center px-5 pt-4 lg:p-10 bg-[#2839a3] lg:w-[75%]"
     >
-      <div class="absolute top-5 left-5 ">
+      <div class="absolute top-5 left-5">
         <div class="w-36 h-7 hidden md:block">
           <LogoBigIcon class="text-white" />
         </div>
@@ -54,12 +54,11 @@ const login = () => {
           <LogoSmallIcon class="text-white" />
         </div>
       </div>
-      <div class="flex flex-col mt-12 md:mt-16 items-center lg:justify-center lg:h-full">
+      <div class="flex flex-col mt-16 items-center lg:justify-center lg:h-full">
         <h1 class="text-4xl lg:text-6xl font-bold">Stay Connected</h1>
         <p class="text-xl mt-2">Manage your social links in one place.</p>
-        <div class="mt-6 mx-auto p-6 sm:h-52 md:h-64 lg:h-auto">
+        <div class="mt-6 mx-auto md:p-6 sm:h-52 md:h-64 lg:h-auto">
           <img
-         
             className="w-full sm:h-52 md:h-64 lg:h-auto"
             src="/assets/social-media-collection.webp"
             alt="devlink logo"
@@ -67,7 +66,7 @@ const login = () => {
           />
         </div>
       </div>
-      <div class="flex mt-8 md:mt-12 flex-col lg:hidden items-center justify-center">
+      <div class="flex mt-12 flex-col lg:hidden items-center justify-center">
         <p class="text-xl mb-3">Log in to your account.</p>
 
         <button
