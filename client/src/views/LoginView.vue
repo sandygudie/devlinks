@@ -46,7 +46,7 @@ const login = () => {
     <div
       class="text-center h-screen flex items-center md:justify-center flex-col relative text-white text-center px-5 pt-4 lg:p-10 bg-[#2839a3] lg:w-[75%]"
     >
-      <div class="absolute top-5 left-5">
+      <div class="absolute top-5 -left-5">
         <div class="w-36 h-7 hidden md:block">
           <LogoBigIcon class="text-white" />
         </div>
