@@ -164,7 +164,7 @@ const handleLinkChange = (event: any, index: number) => {
   </span>
 
   <div v-else class="h-full md:fixed w-full">
-    <div class="h-full md:p-6 bg-gray-100" v-if="isDisplay === 'editor'">
+    <div class="h-full bg-gray-100" v-if="isDisplay === 'editor'">
       <Header :toggledisplay="toggledisplay" :toggleActive="toggleActive" :isActive="isActive" />
       <main class="lg:flex justify-between gap-6 mt-6 h-[90vh]">
         <div
@@ -197,7 +197,6 @@ const handleLinkChange = (event: any, index: number) => {
                       class="w-3"
                       :src="`/assets/icons/icon-link-boxes/icon-${item.name.toLowerCase()}-link-box.svg`"
                     />
-
                     <p class="text-sm">{{ item.name }}</p>
                   </span>
                   <span><ArrowIcon class="text-sm fill-white" /></span>
@@ -221,7 +220,7 @@ const handleLinkChange = (event: any, index: number) => {
         </div>
         <form
           @submit.prevent="handleSubmit"
-          class="w-full lg:w-7/12 relative bg-white rounded-lg px-4 md:px-6 pt-6 pb-24 overflow-y-scroll"
+          class="w-full lg:w-7/12 relative bg-white rounded-lg px-4 md:pl-6 pt-6 pb-6 overflow-y-scroll"
         >
           <Links
             v-if="isActive === 'links'"
@@ -245,7 +244,7 @@ const handleLinkChange = (event: any, index: number) => {
       </main>
     </div>
     <Preview
-    :shareId="shareId"
+      :shareId="shareId"
       :toggledisplay="toggledisplay"
       :updatedLinks="updatedLinks"
       v-else-if="isDisplay === 'preview'"

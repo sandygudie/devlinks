@@ -1,18 +1,23 @@
 <script setup lang="ts">
+import {logOut} from '@/utilis'
 defineProps<{
   handleFirstNameChange: (e: any) => void
   handleLastNameChange: (e: any) => void
   uploadProfileImage: (e: any) => void
   profileLinks: {} | any
 }>()
+
+const logoutCurentUser=() =>{
+  logOut()
+}
 </script>
 
 <template>
   <div class="text-gray-200">
-    <div class="">
+    <div>
       <h1 class="font-extraBold text-xl">Profile Details</h1>
       <p class="text-sm text-gray-200">
-        Add your details to create a personal touch to your profile
+        Add your details to create a personal touch to your profile.
       </p>
     </div>
     <div
@@ -23,7 +28,7 @@ defineProps<{
           <img
             v-if="profileLinks.profilepic"
             :src="profileLinks.profilepic"
-            class="w-full h-36 object-fit rounded-full"
+            class="w-full h-36 object-fit rounded-full border-[1px] border-solid border-gray-400"
             alt="profile-upload"
           />
           <img
@@ -78,7 +83,7 @@ defineProps<{
           required
           :value="profileLinks.lastname"
           type="text"
-          class="focus:border-purple-300  border border-solid border-[1px] outline-none rounded-lg px-4 py-3 max-w-48 w-full md:w-10/12"
+          class="focus:border-purple-300 border border-solid border-[1px] outline-none rounded-lg px-4 py-3 max-w-48 w-full md:w-10/12"
         />
       </div>
       <div class="md:flex justify-between items-center">
@@ -90,6 +95,14 @@ defineProps<{
           class="focus:outline-0 opacity-60 rounded-lg px-4 py-3 w-full max-w-48 md:w-10/12"
         />
       </div>
+    </div>
+    <div class="my-6 w-11/12">
+      <button
+        :onclick="logoutCurentUser"
+        class="bg-red/80 hover:bg-red text-white font-medium rounded-lg py-2 px-6"
+      >
+        Log out
+      </button>
     </div>
   </div>
 </template>

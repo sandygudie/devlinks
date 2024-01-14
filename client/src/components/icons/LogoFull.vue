@@ -1,9 +1,9 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 150 40"
-    width="180"
-    height="30"
+    viewBox="0 0 220 40"
+    width="170"
+    height="40"
     fill="currentColor"
     xmlns:v="https://vecta.io/nano"
   >

@@ -86,7 +86,7 @@ async function copyTextToClipboard() {
           <img
             v-if="updatedLinks.profilepic"
             :src="updatedLinks.profilepic"
-            class="w-20 mx-auto h-20 rounded-full"
+            class="w-20 mx-auto h-20 rounded-full border-[1px] border-solid border-gray-400"
             alt="profile-upload"
           />
           <div v-else class="bg-gray-400 rounded-full w-20 mx-auto h-20"></div>

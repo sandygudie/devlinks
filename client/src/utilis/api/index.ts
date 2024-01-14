@@ -33,7 +33,7 @@ async function makeApiCall<T = any>(
     return data
   } catch (error: any) {
     if (error.response) {
-      console.log(error.response)
+
       if (error.response.status === 403 || error.response.status === 401) {
         localStorage.removeItem(TOKEN_KEY)
         localStorage.removeItem(USERID)

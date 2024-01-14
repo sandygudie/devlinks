@@ -25,3 +25,9 @@ export function setToken(token: string) {
 export function removeDuplicates(arr: number[]) {
   return arr.filter((item, index) => arr.indexOf(item) === index)
 }
+
+export async function logOut() {
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(USERID)
+  window.location.replace('/login')
+}
