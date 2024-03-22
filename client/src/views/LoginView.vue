@@ -26,7 +26,7 @@ const login = () => {
         console.log(result)
         setToken(result.accessToken)
         setUserID(result.userID)
-        return window.location.replace('/')
+        // return window.location.replace('/')
       }
     } catch (err: any) {
       toast.error(err.toString(), {
