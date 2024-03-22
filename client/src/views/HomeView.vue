@@ -51,7 +51,7 @@ onMounted(async () => {
     // return router.push('/login')
   }
   userId = existingUserId
-
+console.log(userId)
   try {
     const profileResponse = await getProfile(userId)
 
