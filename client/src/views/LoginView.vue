@@ -23,10 +23,9 @@ const login = () => {
       isLoading.value = true
       let result = await googleLogin({ token: response.access_token })
       if (result.success) {
-        console.log(result)
         setToken(result.accessToken)
         setUserID(result.userID)
-        // return window.location.replace('/')
+        return window.location.replace('/')
       }
     } catch (err: any) {
       toast.error(err.toString(), {
@@ -62,7 +61,7 @@ const login = () => {
           <img
             className="w-full sm:h-52 md:h-64 lg:h-auto"
             src="/assets/social-media-collection.webp"
-            alt="devlink logo"
+            alt="social media collection"
             loading="eager"
           />
         </div>
