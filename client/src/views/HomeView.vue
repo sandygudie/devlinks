@@ -48,7 +48,7 @@ onMounted(async () => {
   isLoading.value = true
   let existingUserId = getUserId()
   if (!existingUserId) {
-    return router.push('/login')
+    // return router.push('/login')
   }
   userId = existingUserId
 

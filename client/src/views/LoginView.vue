@@ -23,6 +23,7 @@ const login = () => {
       isLoading.value = true
       let result = await googleLogin({ token: response.access_token })
       if (result.success) {
+        console.log(result)
         setToken(result.accessToken)
         setUserID(result.userID)
         return window.location.replace('/')
