@@ -37,7 +37,7 @@ async function makeApiCall<T = any>(
       if (error.response.status === 403 || error.response.status === 401) {
         localStorage.removeItem(TOKEN_KEY)
         localStorage.removeItem(USERID)
-        window.location.replace('/login')
+        // window.location.replace('/login')
       }
     }
     throw new Error(error.response?.data?.message || error.message)
