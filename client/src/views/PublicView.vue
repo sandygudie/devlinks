@@ -6,6 +6,7 @@ import { getPublicDetails } from '@/utilis/api/profile'
 import { useRoute } from 'vue-router'
 import ArrowIcon from '../components/icons/ArrowIcon.vue'
 import Spinner from '../components/Spinner.vue'
+
 const profileLinks = ref<{} | any>({
   firstname: '',
   lastname: '',
@@ -13,6 +14,7 @@ const profileLinks = ref<{} | any>({
   devlinks: [],
   email: ''
 })
+
 const isLoading = ref<boolean>(false)
 const route = useRoute()
 

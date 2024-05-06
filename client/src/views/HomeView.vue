@@ -54,7 +54,6 @@ onMounted(async () => {
 
   try {
     const profileResponse = await getProfile(userId)
-
     if (profileResponse.success) {
       profileLinks.value.firstname = profileResponse.data[0].name.split(' ')[0]
       profileLinks.value.lastname = profileResponse.data[0].name.split(' ')[1]
@@ -64,7 +63,6 @@ onMounted(async () => {
       updatedLinks = JSON.parse(JSON.stringify(profileLinks.value))
       shareId.value = profileResponse.data[0].shareId
     }
-
     isLoading.value = false
   } catch (err: any) {
     toast.error(err.toString(), {
