@@ -27,7 +27,7 @@ defineProps<{
         @click="toggleActive('links')"
       >
         <LinkIcon class="md:hidden" />
-        <span class="hidden md:inline">Links</span>
+        <span class="hidden md:inline font-semibold">Links</span>
       </button>
       <button
         :class="[isActive === 'profile' ? 'active' : 'hover:text-purple-300']"
@@ -35,7 +35,7 @@ defineProps<{
         @click="toggleActive('profile')"
       >
         <ProfileIcon class="md:hidden" />
-        <span class="hidden md:inline"> Profile Details</span>
+        <span class="hidden md:inline font-semibold"> Profile Details</span>
       </button>
     </div>
 
